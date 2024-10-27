@@ -24,6 +24,8 @@ const App: React.FC = () => {
     };
     const FileSelectorPage = () => {
         return (
+
+
             <form className="row file-selectors-container">
                 <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)}
                               info={"选择vmrun路径"}
@@ -56,17 +58,20 @@ const App: React.FC = () => {
         <main className="container">
             <h1>虚拟机管理系统</h1>
 
+            <div className="button-container">
+                <button onClick={() => handlePageChange('基础配置')}>Go to File Selector</button>
+                <button onClick={() => handlePageChange('参数设置')}>Go to Page 1</button>
+            </div>
 
             <div>
-                {currentPage === 'fileSelector' && (
+                {currentPage === '基础配置' && (
                     <FileSelectorPage/>
                 )}
-                {currentPage === 'page1' && (
+                {currentPage === '参数设置' && (
                     <Page1/>
                 )}
 
-                <button onClick={() => handlePageChange('fileSelector')}>Go to File Selector</button>
-                <button onClick={() => handlePageChange('page1')}>Go to Page 1</button>
+
             </div>
 
 

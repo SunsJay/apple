@@ -47,6 +47,25 @@
     margin: 10px;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-around; /* 按钮等间距分布 */
+    margin-bottom: 20px; /* 底部留白 */
+}
+
+.button-container button {
+    padding: 10px 20px; /* 按钮内边距 */
+    background-color: #007bff; /* 按钮背景色 */
+    color: #fff; /* 文字颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标样式为手型 */
+}
+
+.button-container button:hover {
+    background-color: #0056b3; /* 鼠标悬停时的背景色 */
+}
+
 
 h1 {
     text-align: center;
