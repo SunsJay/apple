@@ -3,7 +3,7 @@ import FileSelector from "./components/FileSelector.tsx"; // 引入 FileSelector
 import "./App.css";
 
 const App: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState('fileSelector');
+    const [currentPage, setCurrentPage] = useState('基础配置');
 
 
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
