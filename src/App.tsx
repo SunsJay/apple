@@ -15,8 +15,8 @@ const App: React.FC = () => {
                           isDirectory={false}/>
 
             <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
-                          info={"选择vmrun路径"}
-                          isDirectory={true}/>
+                          info={"选择母盘(vmx)文件"}
+                          isDirectory={false}/>
 
         </main>
     );
