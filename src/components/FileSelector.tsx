@@ -39,16 +39,16 @@ const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info,
 
     return (
         <div>
-            <form className="row">
 
-                <input
-                    id="file-path"
-                    style={{width: `${calculateWidth(selectedPath)}px`}}
-                    onChange={(e) => setSelectedPath(e.currentTarget.value)}
-                    value={selectedPath}
-                />
-                <button type="button" onClick={chooseFile}>{info}</button>
-            </form>
+
+            <input
+                id="file-path"
+                style={{width: `${calculateWidth(selectedPath)}px`}}
+                onChange={(e) => setSelectedPath(e.currentTarget.value)}
+                value={selectedPath}
+            />
+            <button type="button" onClick={chooseFile}>{info}</button>
+
         </div>
     );
 }
