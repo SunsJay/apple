@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import FileSelector from "./components/FileSelector.tsx"; // 引入 FileSelector 组件
 import "./App.css";
+import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 
 const App: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState('基础配置');
+    const [currentPage, setCurrentPage] = useState('本地配置');
 
 
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
@@ -14,75 +14,30 @@ const App: React.FC = () => {
     const handlePageChange = (page: string) => {
         setCurrentPage(page);
     };
-    const Page1 = () => {
-        return (
-            <div>
-                <h1>This is Page 1</h1>
-                <p>Welcome to Page 1</p>
-            </div>
-        );
-    };
-    const FileSelectorPage = () => {
-        return (
 
 
-            <form className="row file-selectors-container">
-                <div className="file-selector-wrapper">
-                    <label htmlFor="vmExePath">vmrun路径:</label>
-                    <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)}
-                                  info={"选择"}
-                                  isDirectory={false} filters={[{
-                        extensions: ["exe"],
-                        name: "vmrun"
-                    }]}
-                    />
-                </div>
-
-                <div className="file-selector-wrapper">
-                    <label htmlFor="masterMacPath">母盘目录:</label>
-
-                    <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
-                                  info={"选择"}
-                                  isDirectory={false}
-                                  filters={[{
-                                      extensions: ["vmx"],
-                                      name: ""
-                                  }]}
-
-                    />
-                </div>
-
-                <div className="file-selector-wrapper">
-                    <label htmlFor="masterMacPath">子盘目录:</label>
-
-                    <FileSelector defaultPath={sonMacPath} onSelect={(path: string) => setSonMacPath(path)}
-                                  info={"选择"}
-                                  isDirectory={true}
-
-                    />
-                </div>
-            </form>
-        );
-    }
-
+    // @ts-ignore
     return (
         <main className="container">
-            <h1>虚拟机管理系统</h1>
 
-            <div className="button-container">
-                <button onClick={() => handlePageChange('基础配置')}>本地基础配置</button>
-                <button onClick={() => handlePageChange('参数设置')}>脚本参数设置</button>
-            </div>
+            <header className="button-container">
+                <button onClick={() => handlePageChange('本地配置')}>本地配置</button>
+                <button onClick={() => handlePageChange('脚本配置')}>脚本配置</button>
+            </header>
+
 
             <div>
-                {currentPage === '基础配置' && (
-                    <FileSelectorPage/>
+                {currentPage === '本地配置' && (
+                    <LocalConfigPage
+                        vmExePath={vmExePath}
+                        setVmExePath={setVmExePath}
+                        masterMacPath={masterMacPath}
+                        setMasterMacPath={setMasterMacPath}
+                        sonMacPath={sonMacPath}
+                        setSonMacPath={setSonMacPath}
+                    />
                 )}
-                {currentPage === '参数设置' && (
-                    <Page1/>
-                )}
-
-
+                {currentPage === '脚本配置' && <ScriptConfigPage/>}
             </div>
 
 

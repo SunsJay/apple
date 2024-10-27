@@ -115,4 +115,24 @@ button {
 }
 
 
+header {
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f6f6f6;
+    z-index: 999; /* 确保在最上层显示 */
+}
 
+.button-container button {
+    padding: 10px 20px; /* 按钮内边距 */
+    background-color: #007bff; /* 按钮背景色 */
+    color: #fff; /* 文字颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标样式为手型 */
+}
