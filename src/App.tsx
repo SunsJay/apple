@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
 
             <form className="row file-selectors-container">
-                <div>
+                <div className="file-selector-wrapper">
                     <label htmlFor="vmExePath">vmrun路径:</label>
                     <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)}
                                   info={"选择"}
@@ -38,7 +38,7 @@ const App: React.FC = () => {
                     />
                 </div>
 
-                <div>
+                <div className="file-selector-wrapper">
                     <label htmlFor="masterMacPath">母盘目录:</label>
 
                     <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
@@ -52,7 +52,7 @@ const App: React.FC = () => {
                     />
                 </div>
 
-                <div>
+                <div className="file-selector-wrapper">
                     <label htmlFor="masterMacPath">子盘目录:</label>
 
                     <FileSelector defaultPath={sonMacPath} onSelect={(path: string) => setSonMacPath(path)}

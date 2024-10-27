@@ -62,6 +62,17 @@
     cursor: pointer; /* 鼠标样式为手型 */
 }
 
+.file-selector-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* 适当调整右边距以控制元素间距 */
+}
+
+label {
+    margin-right: 10px; /* 调整标签和输入框之间的间距 */
+    font-weight: bold;
+}
+
 .button-container button:hover {
     background-color: #0056b3; /* 鼠标悬停时的背景色 */
 }
