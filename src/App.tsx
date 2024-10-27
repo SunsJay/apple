@@ -18,9 +18,7 @@ const App: React.FC = () => {
     useEffect(() => {
 
         // @ts-ignore
-        getDatabaseUrl().then(
-            res => setDatabaseUrl(res)
-        );
+        getDatabaseUrl()
 
     }, []);
 
