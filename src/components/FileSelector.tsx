@@ -29,7 +29,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect}) => {
 
     return (
         <div>
-            <form className="rowga ">
+            <form className="row">
 
                 <input
                     id="file-path"
