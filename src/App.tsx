@@ -21,8 +21,6 @@ function App() {
         setVmExePath(path)
     }
 
-
-
     return (
         <main className="container">
             <h1>虚拟机管理系统</h1>
