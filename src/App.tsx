@@ -40,7 +40,7 @@ const App: React.FC = () => {
                 <button onClick={() => handlePageChange('脚本配置')}>脚本配置</button>
                 <button onClick={() => handlePageChange('虚拟机列表')}>虚拟机列表</button>
             </header>
-
+            <p>{databaseUrl}</p>
             <div>
                 {currentPage === '控制台' && <ControlPage/>}
                 {currentPage === '本地配置' && (
