@@ -17,9 +17,16 @@ const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info,
 
 
     const chooseFile = async () => {
+        // @ts-ignore
         const path = await open({
             multiple: false,
             directory: isDirectory,
+            filters: [
+                {
+                    extensions: ["vmx"],
+                    name: ""
+                }
+            ]
         });
 
         console.log(path);
