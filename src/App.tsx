@@ -59,8 +59,8 @@ const App: React.FC = () => {
             <h1>虚拟机管理系统</h1>
 
             <div className="button-container">
-                <button onClick={() => handlePageChange('基础配置')}>Go to File Selector</button>
-                <button onClick={() => handlePageChange('参数设置')}>Go to Page 1</button>
+                <button onClick={() => handlePageChange('基础配置')}>本地基础配置</button>
+                <button onClick={() => handlePageChange('参数设置')}>脚本参数设置</button>
             </div>
 
             <div>
