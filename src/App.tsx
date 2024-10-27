@@ -26,11 +26,7 @@ function App() {
         close()
     }
 
-    useEffect(() => {
-        // 在vmExePath值变化时执行刷新操作
-        console.log("vmExePath值发生变化:", vmExePath);
-        // 在这里可以执行刷新组件的操作
-    }, [vmExePath]);
+
 
     return (
         <main className="container">
