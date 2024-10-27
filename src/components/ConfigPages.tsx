@@ -2,6 +2,7 @@ import React from 'react';
 // @ts-ignore
 import FileSelector from './FileSelector.tsx';
 
+
 const ScriptConfigPage: React.FC = () => {
     return (
         <div>
@@ -10,6 +11,7 @@ const ScriptConfigPage: React.FC = () => {
         </div>
     );
 };
+
 
 const LocalConfigPage: React.FC = ({
                                        vmExePath,
