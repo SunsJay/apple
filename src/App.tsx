@@ -56,8 +56,12 @@ function App() {
                 <button type="submit">Greet</button>
             </form>
             <p>{greetMsg}</p>
-            <button onClick={open_folder}> Open folder</button>
-            <p>{vmExePath}</p>
+            <input
+                id="choose-vmexe-path"
+                onChange={(e) => setVmExePath(e.currentTarget.value)}
+                placeholder={vmExePath}
+            />
+            <button onClick={open_folder}>VMRUN路径</button>
         </main>
     );
 }
