@@ -27,29 +27,40 @@ const App: React.FC = () => {
 
 
             <form className="row file-selectors-container">
-                <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)}
-                              info={"选择vmrun路径"}
-                              isDirectory={false} filters={[{
-                    extensions: ["exe"],
-                    name: "vmrun"
-                }]}
-                />
+                <div>
+                    <label htmlFor="vmExePath">vmrun路径:</label>
+                    <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)}
+                                  info={"选择"}
+                                  isDirectory={false} filters={[{
+                        extensions: ["exe"],
+                        name: "vmrun"
+                    }]}
+                    />
+                </div>
 
-                <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
-                              info={"选择母盘(vmx)文件"}
-                              isDirectory={false}
-                              filters={[{
-                                  extensions: ["vmx"],
-                                  name: ""
-                              }]}
+                <div>
+                    <label htmlFor="masterMacPath">母盘目录:</label>
 
-                />
+                    <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
+                                  info={"选择"}
+                                  isDirectory={false}
+                                  filters={[{
+                                      extensions: ["vmx"],
+                                      name: ""
+                                  }]}
 
-                <FileSelector defaultPath={sonMacPath} onSelect={(path: string) => setSonMacPath(path)}
-                              info={"选择子盘存放目录"}
-                              isDirectory={true}
+                    />
+                </div>
 
-                />
+                <div>
+                    <label htmlFor="masterMacPath">子盘目录:</label>
+
+                    <FileSelector defaultPath={sonMacPath} onSelect={(path: string) => setSonMacPath(path)}
+                                  info={"选择"}
+                                  isDirectory={true}
+
+                    />
+                </div>
             </form>
         );
     }
