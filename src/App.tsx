@@ -13,16 +13,16 @@ function App() {
     //     setGreetMsg(await invoke("greet", {name}));
     // }
 
-    async function open_folder() {
-        const folder = await open(
+    async function choose_vmexe_path() {
+        const path = await open(
             {
                 multiple: false,
-                directory: true
+                directory: false,
             }
         );
 
         // @ts-ignore
-        setVmExePath(folder)
+        setVmExePath(path)
     }
 
     return (
@@ -39,9 +39,10 @@ function App() {
                 <input
                     id="choose-vmexe-path"
                     onChange={(e) => setVmExePath(e.currentTarget.value)}
-                    placeholder={vmExePath}
+                    // placeholder={vmExePath}
+                    value={vmExePath}
                 />
-                <button onClick={open_folder}>VMRUN路径</button>
+                <button onClick={choose_vmexe_path}>VMRUN路径</button>
             </form>
         </main>
     );
