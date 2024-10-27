@@ -3,10 +3,17 @@ import FileSelector from "./components/FileSelector.tsx"; // 引入 FileSelector
 import "./App.css";
 
 const App: React.FC = () => {
+    const [currentPage, setCurrentPage] = useState('fileSelector');
+
+
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
     const [masterMacPath, setMasterMacPath] = useState("D:\\mupan")
     const [sonMacPath, setSonMacPath] = useState("D:\\zipan")
     // 定义页面1的组件
+
+    const handlePageChange = (page: string) => {
+        setCurrentPage(page);
+    };
     const Page1 = () => {
         return (
             <div>
@@ -15,22 +22,8 @@ const App: React.FC = () => {
             </div>
         );
     };
-
-    const handleButtonClick = (page: string) => {
-        // 实现页面跳转的逻辑，这里可以根据需要进行不同页面的跳转
-        console.log(`Navigating to ${page}`)
-        Page1()
-    };
-    return (
-        <main className="container">
-            <h1>虚拟机管理系统</h1>
-
-            <div>
-                <button onClick={() => handleButtonClick('page1')}>Go to Page 1</button>
-                <button onClick={() => handleButtonClick('page2')}>Go to Page 2</button>
-                <button onClick={() => handleButtonClick('page3')}>Go to Page 3</button>
-            </div>
-
+    const FileSelectorPage = () => {
+        return (
             <form className="row file-selectors-container">
                 <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)}
                               info={"选择vmrun路径"}
@@ -56,6 +49,27 @@ const App: React.FC = () => {
 
                 />
             </form>
+        );
+    }
+
+    return (
+        <main className="container">
+            <h1>虚拟机管理系统</h1>
+
+
+            <div>
+                {currentPage === 'fileSelector' && (
+                    <FileSelectorPage/>
+                )}
+                {currentPage === 'page1' && (
+                    <Page1/>
+                )}
+
+                <button onClick={() => handlePageChange('fileSelector')}>Go to File Selector</button>
+                <button onClick={() => handlePageChange('page1')}>Go to Page 1</button>
+            </div>
+
+
         </main>
     );
 }
