@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <main className="container">
             <h1>虚拟机管理系统</h1>
 
-            <FileSelector defaultPath={vmExePath} onSelect={handleFileSelect}/>
+            <FileSelector defaultPath={vmExePath} onSelect={handleFileSelect} info={"选择vmrun路径"}/>
 
         </main>
     );

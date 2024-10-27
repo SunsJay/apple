@@ -4,9 +4,10 @@ import {open} from '@tauri-apps/plugin-dialog';
 interface FileSelectorProps {
     defaultPath: string;
     onSelect: (path: string) => void;
+    info: string
 }
 
-const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect}) => {
+const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info}) => {
     const [selectedPath, setSelectedPath] = useState(defaultPath);
 
     const calculateWidth = (value: string) => {
@@ -37,7 +38,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect}) => {
                     onChange={(e) => setSelectedPath(e.currentTarget.value)}
                     value={selectedPath}
                 />
-                <button type="button" onClick={chooseFile}>选择文件</button>
+                <button type="button" onClick={chooseFile}>{info}</button>
             </form>
         </div>
     );
