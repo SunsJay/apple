@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
     const [greetMsg, setGreetMsg] = useState("");
     const [name, setName] = useState("");
-
+    const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
     async function greet() {
         // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
         setGreetMsg(await invoke("greet", {name}));
@@ -21,7 +21,7 @@ function App() {
             }
         );
 
-        console.log(folder);
+        setVmExePath(folder)
     }
 
     return (
@@ -57,6 +57,7 @@ function App() {
             </form>
             <p>{greetMsg}</p>
             <button onClick={open_folder}> Open folder</button>
+            <p>{vmExePath}</p>
         </main>
     );
 }
