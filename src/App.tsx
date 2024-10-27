@@ -7,10 +7,6 @@ import "./App.css";
 function App() {
 
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
-    // async function greet() {
-    //     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    //     setGreetMsg(await invoke("greet", {name}));
-    // }
 
     async function choose_vmexe_path() {
         const path = await open(
@@ -23,7 +19,6 @@ function App() {
         console.log(path)
         // @ts-ignore
         setVmExePath(path)
-        close()
     }
 
 
