@@ -37,7 +37,9 @@ const App: React.FC = () => {
                 <button onClick={() => handlePageChange('控制台')}>控制台</button>
                 <button onClick={() => handlePageChange('本地配置')}>本地配置</button>
                 <button onClick={() => handlePageChange('脚本配置')}>脚本配置</button>
-                <button onClick={() => handlePageChange('虚拟机列表')}>虚拟机列表</button>
+                <button onClick={() => handlePageChange('虚拟机')}>虚拟机列表</button>
+                <button onClick={() => handlePageChange('苹果ID')}>苹果ID</button>
+                <button onClick={() => handlePageChange('5码')}>5码</button>
             </header>
             <p>{databaseUrl}</p>
             <div>
