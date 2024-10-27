@@ -4,6 +4,8 @@ import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 import ControlPage from "./components/ControlPage";
 import MacListsPage from "./components/MacListsPage";
 import {getDatabaseUrl} from "./utils/env.ts";
+import IDPage from "./components/IDPage.tsx";
+import SerialNumberPage from "./components/SerialNumberPage.tsx";
 
 const App: React.FC = () => {
 
@@ -53,6 +55,8 @@ const App: React.FC = () => {
                 )}
                 {currentPage === '脚本配置' && <ScriptConfigPage/>}
                 {currentPage === '虚拟机列表' && <MacListsPage/>}
+                {currentPage === '苹果ID' && <IDPage/>}
+                {currentPage === '5码' && <SerialNumberPage/>}
             </div>
         </main>
     );
