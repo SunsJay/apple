@@ -1,6 +1,6 @@
 import {invoke} from "@tauri-apps/api/core";
 
-export const getDatabaseUrl = async () => {
+export const getDatabaseUrl = async (): Promise<string> => {
     try {
         const key = 'DATABASE_URL';
         return await invoke('get_env_var', {key});
