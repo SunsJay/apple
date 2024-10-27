@@ -5,10 +5,16 @@ interface FileSelectorProps {
     defaultPath: string;
     onSelect: (path: string) => void;
     info: string,
-    isDirectory: boolean
+    isDirectory: boolean,
+    filters?: [
+        {
+            extensions: string[],
+            name: string
+        }
+    ]
 }
 
-const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info, isDirectory}) => {
+const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info, isDirectory, filters}) => {
     const [selectedPath, setSelectedPath] = useState(defaultPath);
 
     const calculateWidth = (value: string) => {
@@ -21,12 +27,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info,
         const path = await open({
             multiple: false,
             directory: isDirectory,
-            filters: [
-                {
-                    extensions: ["vmx"],
-                    name: ""
-                }
-            ]
+            filters
         });
 
         console.log(path);

@@ -16,7 +16,13 @@ const App: React.FC = () => {
 
             <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
                           info={"选择母盘(vmx)文件"}
-                          isDirectory={false}/>
+                          isDirectory={false}
+                          filters={[{
+                              extensions: ["vmx"],
+                              name: ""
+                          }]}
+
+            />
 
         </main>
     );
