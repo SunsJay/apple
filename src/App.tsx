@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 import ControlPage from "./components/ControlPage";
@@ -7,7 +7,10 @@ import {store} from "./utils/store.ts";
 
 const App: React.FC = () => {
 
-    store();
+    useEffect(() => {
+        store()
+    }, [])
+
     const [currentPage, setCurrentPage] = useState('控制台');
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
     const [masterMacPath, setMasterMacPath] = useState("D:\\mupan");
