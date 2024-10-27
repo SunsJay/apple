@@ -3,19 +3,30 @@ import "./App.css";
 import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 import ControlPage from "./components/ControlPage";
 import MacListsPage from "./components/MacListsPage";
-import {store} from "./utils/store.ts";
+import {invoke} from "@tauri-apps/api/core";
 
 const App: React.FC = () => {
 
-    useEffect(() => {
-        store()
-    }, [])
-
+    const [databaseUrl, setDatabaseUrl] = useState("");
     const [currentPage, setCurrentPage] = useState('控制台');
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
     const [masterMacPath, setMasterMacPath] = useState("D:\\mupan");
     const [sonMacPath, setSonMacPath] = useState("D:\\zipan");
 
+    useEffect(() => {
+        getDatabaseUrl()
+    }, [])
+
+    const getDatabaseUrl = async () => {
+        try {
+            const key = 'DATABASE_URL';
+            const databaseUrl: string = await invoke('get_env_var', {key});
+            console.log(databaseUrl);
+            setDatabaseUrl(databaseUrl);
+        } catch (error) {
+            console.error('Error while getting database URL:', error);
+        }
+    };
     const handlePageChange = (page: string) => {
         setCurrentPage(page);
     };
