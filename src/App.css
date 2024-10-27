@@ -119,3 +119,8 @@ button {
     background-color: #0f0f0f69;
   }
 }
+
+/*vmexe 输入框*/
+#choose-vmexe-path {
+  width: 300px; /* 设置输入框更长一些，你可以根据需要调整宽度 */
+}
