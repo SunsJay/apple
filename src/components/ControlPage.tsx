@@ -7,7 +7,7 @@ const ControlPage: React.FC = () => {
     const statStyle: React.CSSProperties = {
         position: 'absolute',
         top: '-30px',
-        backgroundColor: 'white',
+        backgroundColor: '#f6f6f6',
         padding: '5px',
         left: '10px', // 调整左边距以适应框的宽度
     };
