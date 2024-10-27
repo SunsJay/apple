@@ -12,7 +12,11 @@ const App: React.FC = () => {
             <h1>虚拟机管理系统</h1>
 
             <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)} info={"选择vmrun路径"}
-                          isDirectory={false}/>
+                          isDirectory={false} filters={[{
+                extensions: ["exe"],
+                name: "vmrun"
+            }]}
+            />
 
             <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
                           info={"选择母盘(vmx)文件"}
