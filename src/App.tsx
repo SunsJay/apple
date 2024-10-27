@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
 
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
-
+    const [fileSelected, setFileSelected] = useState(false);
     // async function greet() {
     //     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     //     setGreetMsg(await invoke("greet", {name}));
@@ -23,8 +23,14 @@ function App() {
 
         // @ts-ignore
         setVmExePath(path)
+        setFileSelected(true);
     }
 
+    const handleFileSelection = () => {
+        if (fileSelected) {
+            setFileSelected(false);
+        }
+    };
     return (
         <main className="container">
             <h1>虚拟机管理系统</h1>
@@ -41,6 +47,7 @@ function App() {
                     onChange={(e) => setVmExePath(e.currentTarget.value)}
                     // placeholder={vmExePath}
                     value={vmExePath}
+                    onClick={handleFileSelection}
                 />
                 <button onClick={choose_vmexe_path}>VMRUN路径</button>
             </form>
