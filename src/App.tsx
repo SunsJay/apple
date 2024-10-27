@@ -3,7 +3,7 @@ import "./App.css";
 import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 import ControlPage from "./components/ControlPage";
 import MacListsPage from "./components/MacListsPage";
-import {invoke} from "@tauri-apps/api/core";
+import {getDatabaseUrl} from "./utils/env.ts";
 
 const App: React.FC = () => {
 
@@ -13,20 +13,17 @@ const App: React.FC = () => {
     const [masterMacPath, setMasterMacPath] = useState("D:\\mupan");
     const [sonMacPath, setSonMacPath] = useState("D:\\zipan");
 
-    useEffect(() => {
-        getDatabaseUrl()
-    }, [])
 
-    const getDatabaseUrl = async () => {
-        try {
-            const key = 'DATABASE_URL';
-            const databaseUrl: string = await invoke('get_env_var', {key});
-            console.log(databaseUrl);
-            setDatabaseUrl(databaseUrl);
-        } catch (error) {
-            console.error('Error while getting database URL:', error);
-        }
-    };
+    // @ts-ignore
+    useEffect(() => {
+
+        // @ts-ignore
+        getDatabaseUrl().then(
+            res => setDatabaseUrl(res)
+        );
+
+    }, []);
+
     const handlePageChange = (page: string) => {
         setCurrentPage(page);
     };
