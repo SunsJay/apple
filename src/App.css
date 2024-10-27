@@ -44,6 +44,11 @@
 .row {
   display: flex;
   justify-content: center;
+  align-items: center; /* 垂直居中对齐 */
+}
+
+.row input {
+  margin-right: 10px; /* 设置输入框和按钮之间的间距 */
 }
 
 a {
