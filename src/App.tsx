@@ -20,6 +20,7 @@ function App() {
             }
         );
 
+        console.log(path)
         // @ts-ignore
         setVmExePath(path)
         close()
