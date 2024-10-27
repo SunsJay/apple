@@ -4,10 +4,11 @@ import {open} from '@tauri-apps/plugin-dialog';
 interface FileSelectorProps {
     defaultPath: string;
     onSelect: (path: string) => void;
-    info: string
+    info: string,
+    isDirectory: boolean
 }
 
-const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info}) => {
+const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info, isDirectory}) => {
     const [selectedPath, setSelectedPath] = useState(defaultPath);
 
     const calculateWidth = (value: string) => {
@@ -18,7 +19,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect, info}
     const chooseFile = async () => {
         const path = await open({
             multiple: false,
-            directory: false,
+            directory: isDirectory,
         });
 
         console.log(path);

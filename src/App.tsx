@@ -4,16 +4,19 @@ import "./App.css";
 
 const App: React.FC = () => {
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
+    const [masterMacPath, setMasterMacPath] = useState("D:\\mupan")
 
-    const handleFileSelect = (path: string) => {
-        setVmExePath(path);
-    };
 
     return (
         <main className="container">
             <h1>虚拟机管理系统</h1>
 
-            <FileSelector defaultPath={vmExePath} onSelect={handleFileSelect} info={"选择vmrun路径"}/>
+            <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)} info={"选择vmrun路径"}
+                          isDirectory={false}/>
+
+            <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
+                          info={"选择vmrun路径"}
+                          isDirectory={true}/>
 
         </main>
     );
