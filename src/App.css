@@ -52,6 +52,18 @@
     margin-right: 10px; /* 设置输入框和按钮之间的间距 */
 }
 
+.file-selectors-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.file-selectors-container > * {
+    flex: 1 1 calc(33.33% - 20px); /* 让每个组件占据页面宽度的三分之一，减去一些间距 */
+    margin: 10px;
+}
+
 a {
     font-weight: 500;
     color: #646cff;
@@ -121,5 +133,9 @@ button {
     button:active {
         background-color: #0f0f0f69;
     }
+
+
 }
+
+
 

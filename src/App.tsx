@@ -11,7 +11,7 @@ const App: React.FC = () => {
         <main className="container">
             <h1>虚拟机管理系统</h1>
 
-            <form className="row">
+            <form className="row file-selectors-container">
                 <FileSelector defaultPath={vmExePath} onSelect={(path: string) => setVmExePath(path)}
                               info={"选择vmrun路径"}
                               isDirectory={false} filters={[{
