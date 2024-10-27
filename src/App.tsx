@@ -12,8 +12,8 @@ function App() {
     //     setGreetMsg(await invoke("greet", {name}));
     // }
 
-    async function choose_vmexe_path() {
-        const path = await open(
+     function choose_vmexe_path() {
+        const path =  open(
             {
                 multiple: false,
                 directory: false,
