@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 // import reactLogo from "./assets/react.svg";
 // import {invoke} from "@tauri-apps/api/core";
 import {open} from '@tauri-apps/plugin-dialog';
@@ -12,8 +12,8 @@ function App() {
     //     setGreetMsg(await invoke("greet", {name}));
     // }
 
-     function choose_vmexe_path() {
-        const path =  open(
+    async function choose_vmexe_path() {
+        const path = await open(
             {
                 multiple: false,
                 directory: false,
@@ -26,6 +26,11 @@ function App() {
         close()
     }
 
+    useEffect(() => {
+        // 在vmExePath值变化时执行刷新操作
+        console.log("vmExePath值发生变化:", vmExePath);
+        // 在这里可以执行刷新组件的操作
+    }, [vmExePath]);
 
     return (
         <main className="container">
@@ -36,8 +41,6 @@ function App() {
                 className="row"
 
             >
-
-
                 <input
                     id="choose-vmexe-path"
                     onChange={(e) => setVmExePath(e.currentTarget.value)}
