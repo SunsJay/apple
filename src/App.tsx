@@ -47,7 +47,7 @@ function App() {
                     // placeholder={vmExePath}
                     value={vmExePath}
                 />
-                <button onClick={choose_vmexe_path}>VMRUN路径</button>
+                <button type="button" onClick={choose_vmexe_path}>VMRUN路径</button>
             </form>
         </main>
     );
