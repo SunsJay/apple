@@ -5,7 +5,7 @@ import "./App.css";
 const App: React.FC = () => {
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
     const [masterMacPath, setMasterMacPath] = useState("D:\\mupan")
-
+    const [sonMacPath, setSonMacPath] = useState("D:\\zipan")
 
     return (
         <main className="container">
@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
                 />
 
-                <FileSelector defaultPath={masterMacPath} onSelect={(path: string) => setMasterMacPath(path)}
+                <FileSelector defaultPath={sonMacPath} onSelect={(path: string) => setSonMacPath(path)}
                               info={"选择子盘存放目录"}
                               isDirectory={true}
 
