@@ -10,7 +10,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({defaultPath, onSelect}) => {
     const [selectedPath, setSelectedPath] = useState(defaultPath);
 
     const calculateWidth = (value: string) => {
-        return value.length * 5 + 50; // 以每个字符占据 10px 宽度，再加上额外 50px
+        return value.length * 8 + 50; // 以每个字符占据 10px 宽度，再加上额外 50px
     };
 
 
