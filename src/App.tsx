@@ -31,6 +31,7 @@ const App: React.FC = () => {
     };
 
 
+    // @ts-ignore
     return (
         <main className="container">
             <header className="button-container">
@@ -57,7 +58,7 @@ const App: React.FC = () => {
                 )}
                 {currentPage === '脚本配置' && <ScriptConfigPage/>}
                 {currentPage === '虚拟机列表' && <MacListsPage/>}
-                {currentPage === '苹果ID' && <IDPage/>}
+                {currentPage === '苹果ID' && <IDPage dbUrl={databaseUrl}/>}
                 {currentPage === '5码' && <SerialNumberPage/>}
             </div>
         </main>

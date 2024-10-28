@@ -1,7 +1,12 @@
 import React from 'react';
+import Database from "@tauri-apps/plugin-sql";
 
-const IDPage: React.FC = () => {
 
+// @ts-ignore
+const IDPage: React.FC<DBUrl> = async (dbUrl: string) => {
+    const db = await Database.load(dbUrl);
+    const res = await db.execute("SELECT * from im_id");
+    console.log(res)
 
     return (
         <div>
