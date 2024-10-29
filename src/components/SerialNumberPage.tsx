@@ -10,7 +10,7 @@ interface Row {
     config_model: string;
 }
 
-const ITEMS_PER_PAGE = 10; // 每页显示的数据条数
+const ITEMS_PER_PAGE = 20; // 每页显示的数据条数
 
 const SerialNumberPage: React.FC<{ rows: Row[] }> = ({rows}) => {
     const [currentPage, setCurrentPage] = useState(1);

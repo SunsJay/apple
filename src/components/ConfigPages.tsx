@@ -6,8 +6,7 @@ import FileSelector from './FileSelector.tsx';
 const ScriptConfigPage: React.FC = () => {
     return (
         <div>
-            <h1>This is Page 1</h1>
-            <p>Welcome to Page 1</p>
+            <h1>脚本配置</h1>
         </div>
     );
 };
