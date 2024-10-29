@@ -18,6 +18,8 @@ const App: React.FC = () => {
     const [appleIDs, setAppleIDs] = useState([]);
     const [serialNumbers, setSerialNumbers] = useState([]);
     const [vms, setVms] = useState([]);
+    const [runNumbers, setRunNumbers] = useState(0);
+
 
     useEffect(() => {
         const getVmNumbers = async () => {
@@ -44,7 +46,9 @@ const App: React.FC = () => {
             console.log(extractedNames); // 输出提取出来的文件名数组
 
             // @ts-ignore
-            setVms(res)
+            setVms(extractedNames)
+            // @ts-ignore
+            setRunNumbers(res[1])
         }
 
         getVmNumbers();
@@ -83,7 +87,9 @@ const App: React.FC = () => {
                                      setMasterMacPath={setMasterMacPath} sonMacPath={sonMacPath}
                                      setSonMacPath={setSonMacPath}/>}
                 {currentPage === '脚本配置' && <ScriptConfigPage/>}
-                {currentPage === '虚拟机' && <MacListsPage rows={vms}/>}
+                
+                // @ts-ignore
+                {currentPage === '虚拟机' && <MacListsPage rows={vms} runNumbers={runNumbers}/>}
                 {currentPage === '5码' && <SerialNumberPage rows={serialNumbers}/>}
                 {currentPage === '苹果ID' && <IDPage rows={appleIDs}/>}
             </div>

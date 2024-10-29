@@ -3,11 +3,12 @@ import "../css/IDPage.css";
 
 
 // @ts-ignore
-const MacListsPage: React.FC = ({rows}) => {
+const MacListsPage: React.FC = ({rows, runNumbers}) => {
 
     return (
         <div>
             <p>虚拟机信息列表</p>
+            <p>正在运行的虚拟机数量： {runNumbers}</p>
             <table className="id-table">
                 <thead>
                 <tr>
