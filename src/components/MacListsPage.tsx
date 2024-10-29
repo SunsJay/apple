@@ -12,7 +12,7 @@ const MacListsPage: React.FC = ({rows}) => {
                 <thead>
                 <tr>
                     <th>名称</th>
-                    <th>数量</th>
+                    <th>状态</th>
 
                 </tr>
                 </thead>

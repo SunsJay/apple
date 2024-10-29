@@ -23,6 +23,9 @@ const App: React.FC = () => {
         const getVmNumbers = async () => {
 
             const res = await vmrunList();
+            console.log(res[0])
+            console.log(res[1])
+
             // @ts-ignore
             setVms(res)
         }
