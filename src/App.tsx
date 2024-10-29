@@ -36,7 +36,7 @@ const App: React.FC = () => {
                 const fileName = parts[parts.length - 1].replace('.vmx', ''); // 获取最后一个斜杠后的文件名（去掉.vmx后缀）
 
                 // 如果文件名不为空字符串，则将其保存到数组中
-                if (fileName.trim() !== '') {
+                if (fileName.trim() !== "") {
                     extractedNames.push(fileName.trim());
                 }
             }
