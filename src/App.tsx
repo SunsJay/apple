@@ -23,8 +23,21 @@ const App: React.FC = () => {
         const getVmNumbers = async () => {
 
             const res = await vmrunList();
-            console.log(res[0])
-            console.log(res[1])
+            // 将字符串按行分割
+            // @ts-ignore
+            const lines = res[0].split('\n');
+
+            const extractedNames: string[] = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim(); // 去除首尾空格
+                const parts = line.split('\\'); // 将路径按斜杠分割
+                const fileName = parts[parts.length - 1].replace('.vmx', ''); // 获取最后一个斜杠后的文件名（去掉.vmx后缀）
+                extractedNames.push(fileName); // 将提取出来的文件名保存到数组中
+            }
+
+            console.log(extractedNames); // 输出提取出来的文件名数组
+           
 
             // @ts-ignore
             setVms(res)
