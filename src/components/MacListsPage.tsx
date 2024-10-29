@@ -17,13 +17,13 @@ const MacListsPage: React.FC = ({rows}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {rows.map((row: (string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined)[], index: React.Key | null | undefined) => (
+                {rows.map((row: [string, number], index: React.Key | null | undefined) => (
                     <tr key={index}>
                         <td>{row[0]}</td>
                         <td>{row[1]}</td>
-
                     </tr>
                 ))}
+
                 </tbody>
             </table>
         </div>
