@@ -125,6 +125,7 @@ name = "apple"
 version = "0.1.0"
 dependencies = [
  "dotenv",
+ "lazy_static",
  "serde",
  "serde_json",
  "tauri",
@@ -142,6 +143,7 @@ dependencies = [
  "tauri-plugin-sql",
  "tauri-plugin-store",
  "tauri-plugin-updater",
+ "tokio",
 ]
 
 [[package]]
@@ -5897,6 +5899,7 @@ dependencies = [
  "bytes",
  "libc",
  "mio",
+ "parking_lot",
  "pin-project-lite",
  "signal-hook-registry",
  "socket2",

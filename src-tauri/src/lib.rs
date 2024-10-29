@@ -1,6 +1,7 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 
 pub mod utils;
+pub mod vm;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -18,7 +19,7 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_persisted_scope::init())
-        .invoke_handler(tauri::generate_handler![utils::get_env_var])
+        .invoke_handler(tauri::generate_handler![utils::get_env_var, vm::vmrun_list])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

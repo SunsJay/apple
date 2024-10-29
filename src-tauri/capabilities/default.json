@@ -7,7 +7,6 @@
   ],
   "permissions": [
     "core:default",
-    "shell:allow-open",
     "fs:default",
     "fs:default",
     "log:default",
@@ -18,6 +17,11 @@
     "sql:default",
     "sql:allow-execute",
     "sql:allow-load",
-    "store:default"
+    "store:default",
+    "shell:allow-execute",
+    "shell:allow-open",
+    "shell:allow-spawn",
+    "shell:allow-stdin-write",
+    "shell:default"
   ]
 }

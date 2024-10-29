@@ -1,4 +1,6 @@
 use std::env;
+use std::fs::File;
+use std::io::{self, Read};
 
 use dotenv::dotenv;
 
@@ -32,4 +34,35 @@ pub fn get_env_var(key: &str) -> String {
             "".to_string()
         }
     }
+}
+
+
+pub fn read(filename: &str) -> Result<String, io::Error> {
+    let mut contents = String::new();
+
+    let res = File::open(filename);
+
+    match res {
+        Ok(mut file) => {
+            let res = file.read_to_string(&mut contents);
+            match res {
+                Ok(_) => delete(filename)?,
+                Err(e) => match e.kind() {
+                    io::ErrorKind::NotFound => {}
+                    _ => return Err(e),
+                },
+            }
+        }
+        Err(e) => match e.kind() {
+            io::ErrorKind::NotFound => {}
+            _ => return Err(e),
+        },
+    }
+
+    Ok(contents)
+}
+
+fn delete(filename: &str) -> Result<(), io::Error> {
+    std::fs::remove_file(filename)?;
+    Ok(())
 }

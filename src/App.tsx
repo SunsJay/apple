@@ -3,7 +3,7 @@ import "./App.css";
 import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 import ControlPage from "./components/ControlPage";
 import MacListsPage from "./components/MacListsPage";
-import {getDatabaseUrl} from "./utils/env.ts";
+import {getDatabaseUrl, vmrunList} from "./utils/env.ts";
 import SerialNumberPage from "./components/SerialNumberPage.tsx";
 import IDPage from "./components/IDPage.tsx";
 import {queryAppleID, querySerialNumber} from "./utils/db.ts";
@@ -18,6 +18,7 @@ const App: React.FC = () => {
     const [serialNumbers, setSerialNumbers] = useState([]);
 
     useEffect(() => {
+        vmrunList()
         getDatabaseUrl().then((res) => {
             setDatabaseUrl(res);
         });
