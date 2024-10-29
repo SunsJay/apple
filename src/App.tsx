@@ -20,7 +20,15 @@ const App: React.FC = () => {
     const [vms, setVms] = useState([]);
 
     useEffect(() => {
-        vmrunList(setVms)
+        const getVmNumbers = async () => {
+
+            const res = await vmrunList();
+            // @ts-ignore
+            setVms(res)
+        }
+
+        getVmNumbers();
+
         getDatabaseUrl().then((res) => {
             setDatabaseUrl(res);
         });
