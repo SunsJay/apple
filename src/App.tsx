@@ -19,7 +19,7 @@ const App: React.FC = () => {
     const [serialNumbers, setSerialNumbers] = useState([]);
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
-
+    const [maxRunNumbers, setMaxRunNumbers] = useState(5);
 
     useEffect(() => {
         const getVmNumbers = async () => {
@@ -85,7 +85,8 @@ const App: React.FC = () => {
                     // @ts-ignore
                     <LocalConfigPage vmExePath={vmExePath} setVmExePath={setVmExePath} masterMacPath={masterMacPath}
                                      setMasterMacPath={setMasterMacPath} sonMacPath={sonMacPath}
-                                     setSonMacPath={setSonMacPath}/>}
+                                     setSonMacPath={setSonMacPath} maxRunNumbers={maxRunNumbers}
+                                     setMaxRunNumbers={setRunNumbers}/>}
                 {currentPage === '脚本配置' && <ScriptConfigPage/>}
 
                 {currentPage === '虚拟机' &&

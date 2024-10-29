@@ -18,7 +18,8 @@ const LocalConfigPage: React.FC = ({
                                        masterMacPath,
                                        setMasterMacPath,
                                        sonMacPath,
-                                       setSonMacPath
+                                       setSonMacPath,
+                                       maxRunNumbers, setMaxRunNumbers
                                    }: any) => {
     return (
         <form className="row file-selectors-container">
@@ -51,6 +52,14 @@ const LocalConfigPage: React.FC = ({
                     onSelect={(path: string) => setSonMacPath(path)}
                     info={"选择"}
                     isDirectory={true}
+                />
+            </div>
+
+            <div className="file-selector-wrapper">
+                <label htmlFor="maxRunNumbers">最大运行数量:</label>
+                <input
+                    value={maxRunNumbers}
+                    onChange={(e) => setMaxRunNumbers(e.target.value)}
                 />
             </div>
         </form>
