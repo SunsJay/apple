@@ -58,6 +58,7 @@ const LocalConfigPage: React.FC = ({
             <div className="file-selector-wrapper">
                 <label htmlFor="maxRunNumbers">最大运行数量:</label>
                 <input
+                    type="text"
                     value={maxRunNumbers}
                     onChange={(e) => setMaxRunNumbers(e.target.value)}
                 />
