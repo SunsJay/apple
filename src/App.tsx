@@ -6,7 +6,7 @@ import MacListsPage from "./components/MacListsPage";
 import {getDatabaseUrl} from "./utils/env.ts";
 import SerialNumberPage from "./components/SerialNumberPage.tsx";
 import IDPage from "./components/IDPage.tsx";
-import Database from "@tauri-apps/plugin-sql";
+import {queryAppleID, querySerialNumber} from "./utils/db.ts";
 
 const App: React.FC = () => {
     const [databaseUrl, setDatabaseUrl] = useState("");
@@ -14,7 +14,8 @@ const App: React.FC = () => {
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
     const [masterMacPath, setMasterMacPath] = useState("D:\\mupan");
     const [sonMacPath, setSonMacPath] = useState("D:\\zipan");
-    const [rows, setRows] = useState([]);
+    const [appleIDs, setAppleIDs] = useState([]);
+    const [serialNumbers, setSerialNumbers] = useState([]);
 
     useEffect(() => {
         getDatabaseUrl().then((res) => {
@@ -24,23 +25,10 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if (databaseUrl) {
-            queryID();
+            queryAppleID(databaseUrl, setAppleIDs);
+            querySerialNumber(databaseUrl, setSerialNumbers);
         }
     }, [databaseUrl]);
-
-    async function initDb() {
-        if (databaseUrl) {
-            console.log(`URL: ${databaseUrl}`);
-            return await Database.load(databaseUrl);
-        }
-    }
-
-    async function queryID() {
-        const db = await initDb();
-        const queriedRows = await db.select("SELECT * FROM im_id");
-        console.log(`Length: ${queriedRows.length}`);
-        setRows(queriedRows);
-    }
 
     const handlePageChange = (page: string) => {
         setCurrentPage(page);
@@ -54,7 +42,6 @@ const App: React.FC = () => {
                 ))}
             </header>
 
-
             <div>
                 {currentPage === '控制台' && <ControlPage/>}
                 {currentPage === '本地配置' &&
@@ -63,8 +50,8 @@ const App: React.FC = () => {
                                      setSonMacPath={setSonMacPath}/>}
                 {currentPage === '脚本配置' && <ScriptConfigPage/>}
                 {currentPage === '虚拟机' && <MacListsPage/>}
-                {currentPage === '5码' && <SerialNumberPage/>}
-                {currentPage === '苹果ID' && <IDPage rows={rows}/>}
+                {currentPage === '5码' && <SerialNumberPage rows={serialNumbers}/>}
+                {currentPage === '苹果ID' && <IDPage rows={appleIDs}/>}
             </div>
         </main>
     );
