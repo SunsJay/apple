@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, SetStateAction, useState} from 'react';
 import "../css/IDPage.css";
 
+// @ts-ignore
 const IDPage = ({rows}) => {
     const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
@@ -11,7 +12,7 @@ const IDPage = ({rows}) => {
 
     const totalPages = Math.ceil(rows.length / itemsPerPage);
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: SetStateAction<number>) => {
         setCurrentPage(page);
     };
 
@@ -26,7 +27,11 @@ const IDPage = ({rows}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {currentRows.map((row, index) => (
+                {currentRows.map((row: {
+                    id: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined;
+                    config_appleid: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined;
+                    config_appleid_pwd: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined;
+                }, index: Key | null | undefined) => (
                     <tr key={index}>
                         <td>{row.id}</td>
                         <td>{row.config_appleid}</td>

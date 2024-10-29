@@ -34,6 +34,7 @@ const App: React.FC = () => {
         setCurrentPage(page);
     };
 
+
     return (
         <main className="container">
             <header className="button-container">
@@ -45,6 +46,7 @@ const App: React.FC = () => {
             <div>
                 {currentPage === '控制台' && <ControlPage/>}
                 {currentPage === '本地配置' &&
+                    // @ts-ignore
                     <LocalConfigPage vmExePath={vmExePath} setVmExePath={setVmExePath} masterMacPath={masterMacPath}
                                      setMasterMacPath={setMasterMacPath} sonMacPath={sonMacPath}
                                      setSonMacPath={setSonMacPath}/>}
