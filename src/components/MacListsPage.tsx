@@ -19,8 +19,8 @@ const MacListsPage: React.FC = ({rows}) => {
                 <tbody>
                 {rows.map((row: [string, number], index: React.Key | null | undefined) => (
                     <tr key={index}>
-                        <td>{row[0]}</td>
-                        <td>{row[1]}</td>
+                        <td>{row}</td>
+
                     </tr>
                 ))}
 
