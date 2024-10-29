@@ -87,9 +87,10 @@ const App: React.FC = () => {
                                      setMasterMacPath={setMasterMacPath} sonMacPath={sonMacPath}
                                      setSonMacPath={setSonMacPath}/>}
                 {currentPage === '脚本配置' && <ScriptConfigPage/>}
-                
-                // @ts-ignore
-                {currentPage === '虚拟机' && <MacListsPage rows={vms} runNumbers={runNumbers}/>}
+
+                {currentPage === '虚拟机' &&
+                    // @ts-ignore
+                    <MacListsPage rows={vms} runNumbers={runNumbers}/>}
                 {currentPage === '5码' && <SerialNumberPage rows={serialNumbers}/>}
                 {currentPage === '苹果ID' && <IDPage rows={appleIDs}/>}
             </div>
