@@ -86,7 +86,7 @@ const App: React.FC = () => {
                     <LocalConfigPage vmExePath={vmExePath} setVmExePath={setVmExePath} masterMacPath={masterMacPath}
                                      setMasterMacPath={setMasterMacPath} sonMacPath={sonMacPath}
                                      setSonMacPath={setSonMacPath} maxRunNumbers={maxRunNumbers}
-                                     setMaxRunNumbers={setRunNumbers}/>}
+                                     setMaxRunNumbers={setMaxRunNumbers}/>}
                 {currentPage === '脚本配置' && <ScriptConfigPage/>}
 
                 {currentPage === '虚拟机' &&

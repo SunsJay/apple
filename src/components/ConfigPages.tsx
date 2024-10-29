@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 // @ts-ignore
 import FileSelector from './FileSelector.tsx';
 
@@ -21,6 +21,16 @@ const LocalConfigPage: React.FC = ({
                                        setSonMacPath,
                                        maxRunNumbers, setMaxRunNumbers
                                    }: any) => {
+
+    const handleMaxRunNumbersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setMaxRunNumbers(e.target.value);
+
+    };
+
+    useEffect(() => {
+        console.log(maxRunNumbers);
+    }, [maxRunNumbers]);
+
     return (
         <form className="row file-selectors-container">
             <div className="file-selector-wrapper">
@@ -60,7 +70,7 @@ const LocalConfigPage: React.FC = ({
                 <input
                     type="text"
                     value={maxRunNumbers}
-                    onChange={(e) => setMaxRunNumbers(e.target.value)}
+                    onChange={handleMaxRunNumbersChange}
                 />
             </div>
         </form>
