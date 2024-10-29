@@ -11,12 +11,3 @@ export const getDatabaseUrl = async (): Promise<string> => {
 };
 
 
-export const vmrunList = async () => {
-    try {
-        const res = await invoke('vmrun_list');
-        console.log(res)
-    } catch (error) {
-        console.error('获取数据库 URL 时出错:', error);
-        return "";
-    }
-};
