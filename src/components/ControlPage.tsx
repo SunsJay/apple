@@ -75,6 +75,7 @@ const ControlPage: React.FC<{
     }, []);
 
     useEffect(() => {
+        getVmNumbers();
         if (runNumbers < maxRunNumbers && !isCloning && !stopCloning) {
             startClone();
         }
