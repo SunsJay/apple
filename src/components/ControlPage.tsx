@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getVmNumbers, vmrunClone} from "../services/vm.ts";
 
+// 控制页面
 const ControlPage: React.FC<{
     maxRunNumbers: number,
     vmExePath: string,
