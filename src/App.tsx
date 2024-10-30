@@ -8,6 +8,7 @@ import SerialNumberPage from "./components/SerialNumberPage.tsx";
 import IDPage from "./components/IDPage.tsx";
 import {queryAppleID, querySerialNumber} from "./utils/db.ts";
 import {vmrunList} from "./services/vm.ts";
+import {handlePageChange} from "./utils/common.ts";
 
 const App: React.FC = () => {
     const [databaseUrl, setDatabaseUrl] = useState("");
@@ -47,7 +48,6 @@ const App: React.FC = () => {
             // @ts-ignore
             const extractedNames = parseVmList(res[0]);
 
-            console.log(extractedNames);
 
             // @ts-ignore
             setVms(extractedNames);
@@ -77,17 +77,13 @@ const App: React.FC = () => {
         }
     }, [databaseUrl]);
 
-    const handlePageChange = (page: string) => {
-        setCurrentPage(page);
-    };
-
 
     // @ts-ignore
     return (
         <main className="container">
             <header className="button-container">
                 {['控制台', '本地配置', '脚本配置', '虚拟机', '苹果ID', '5码'].map(page => (
-                    <button key={page} onClick={() => handlePageChange(page)}>{page}</button>
+                    <button key={page} onClick={() => handlePageChange(page, setCurrentPage)}>{page}</button>
                 ))}
             </header>
 
