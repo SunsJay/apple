@@ -7,7 +7,6 @@ import {getDatabaseUrl,} from "./utils/env.ts";
 import SerialNumberPage from "./components/SerialNumberPage.tsx";
 import IDPage from "./components/IDPage.tsx";
 import {queryAppleID, querySerialNumber} from "./utils/db.ts";
-import {vmrunList} from "./services/vm.ts";
 import {handlePageChange} from "./utils/common.ts";
 import {useAppState} from "./model/useAppState.ts";
 
@@ -20,45 +19,28 @@ const App: React.FC = () => {
         sonMacPath, setSonMacPath,
         appleIDs, setAppleIDs,
         serialNumbers, setSerialNumbers,
-        vms, setVms,
-        runNumbers, setRunNumbers,
+        vms,
+        runNumbers,
         maxRunNumbers, setMaxRunNumbers
     } = useAppState();
-    // 解析 VM 列表字符串并提取文件名的函数
-    const parseVmList = (vmListString: string) => {
-        const lines = vmListString.split('\n');
-        const extractedNames = [];
-
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            const parts = line.split('\\');
-            const fileName = parts[parts.length - 1].replace('.vmx', '');
-
-            if (fileName.trim() !== "") {
-                extractedNames.push(fileName.trim());
-            }
-        }
-
-        return extractedNames;
-    };
 
 
     // 获取 VM 数量和数据库 URL 的 useEffect
     useEffect(() => {
-        const getVmNumbers = async () => {
-            const res = await vmrunList(vmExePath);
-            // @ts-ignore
-            const extractedNames = parseVmList(res[0]);
-
-
-            // @ts-ignore
-            setVms(extractedNames);
-            // @ts-ignore
-            setRunNumbers(res[1]);
-        };
+        // const getVmNumbers = async () => {
+        //     const res = await vmrunList(vmExePath);
+        //     // @ts-ignore
+        //     const extractedNames = parseVmList(res[0]);
+        //
+        //
+        //     // @ts-ignore
+        //     setVms(extractedNames);
+        //     // @ts-ignore
+        //     setRunNumbers(res[1]);
+        // };
 
         const updateData = async () => {
-            await getVmNumbers();
+            // await getVmNumbers();
             const dbUrl = await getDatabaseUrl();
             setDatabaseUrl(dbUrl);
         };

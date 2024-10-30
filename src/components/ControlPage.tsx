@@ -1,21 +1,49 @@
 import React, {useEffect, useState} from 'react';
-import {vmrunClone} from "../services/vm.ts";
+import {vmrunClone, vmrunList} from "../services/vm.ts";
 
 const ControlPage: React.FC<{
     maxRunNumbers: number,
-    runNumbers: number,
     vmExePath: string,
     masterMacPath: string,
     sonMacPath: string
 }> = ({
           maxRunNumbers,
-          runNumbers,
           vmExePath,
           masterMacPath,
           sonMacPath
       }) => {
-    const totalNumbers = 10;
     const [isCloning, setIsCloning] = useState(false);
+    const [vms, setVms] = useState([]);
+    const [runNumbers, setRunNumbers] = useState(0);
+
+
+    // 解析 VM 列表字符串并提取文件名的函数
+    const parseVmList = (vmListString: string) => {
+        const lines = vmListString.split('\n');
+        const extractedNames = [];
+
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            const parts = line.split('\\');
+            const fileName = parts[parts.length - 1].replace('.vmx', '');
+
+            if (fileName.trim() !== "") {
+                extractedNames.push(fileName.trim());
+            }
+        }
+
+        return extractedNames;
+    };
+
+    const getVmNumbers = async () => {
+        const res = await vmrunList(vmExePath);
+        // @ts-ignore
+        const extractedNames = parseVmList(res[0]);
+        // @ts-ignore
+        setVms(extractedNames);
+        // @ts-ignore
+        setRunNumbers(res[1]);
+    };
 
     const startClone = async () => {
         if (isCloning || runNumbers >= maxRunNumbers) {
@@ -40,12 +68,16 @@ const ControlPage: React.FC<{
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if (isCloning) {
-                startClone();
-            }
+            getVmNumbers();
         }, 30000);
 
         return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (runNumbers < maxRunNumbers && !isCloning) {
+            startClone();
+        }
     }, [runNumbers, maxRunNumbers, isCloning, startClone]);
 
     return (
@@ -57,17 +89,14 @@ const ControlPage: React.FC<{
 
             <div>
                 <p>虚拟机数量统计：</p>
-                <p>总数： {totalNumbers}</p>
-                <p>可用： {totalNumbers}</p>
-                <p>静置中： {totalNumbers}</p>
-                <p>已失效： {totalNumbers}</p>
+                <p>当前运行实例数： {runNumbers}</p>
+                <p>最大实例数限制： {maxRunNumbers}</p>
             </div>
 
             <div>
-                <p>运行实例状态：</p>
-                <p>开机任务数： {runNumbers}</p>
-                <p>执行任务中： {totalNumbers - runNumbers}</p>
-                <p>初始化中： {totalNumbers - runNumbers}</p>
+                {vms.map((vm, index) => (
+                    <p key={index}>{vm}</p>
+                ))}
             </div>
         </div>
     );
