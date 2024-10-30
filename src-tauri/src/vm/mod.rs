@@ -1,4 +1,3 @@
-use std::path::Path;
 use std::time;
 
 use lazy_static::lazy_static;
@@ -60,23 +59,24 @@ pub async fn vmrun_list(vm_exe_path: String) -> (&'static str, usize) {
 pub async fn vmrun_clone(vm_exe_path: String, master_mac_path: String, son_mac_path: String) -> String {
     let vm_name = get_timestamp();
 
-    let son_mac_path = format!("{}\\{}\\{}.vmx", son_mac_path, vm_name, vm_name);
+    let son_mac_path = format!("{}\\{}\\{}.vmx", &son_mac_path, vm_name, vm_name);
     let clone_name = format!("-cloneName={}", vm_name);
-    let res = vmrun(vm_exe_path, Vec::from([
+    let res = vmrun(vm_exe_path.clone(), Vec::from([
         "-T".to_string(),
         "ws".to_string(),
         "clone".to_string(),
         master_mac_path,
-        son_mac_path,
+        son_mac_path.clone(),
         "linked".to_string(),
         clone_name,
     ])).await;
 
-    let res = vmrun(vm_exe_path, Vec::from([
+
+    let res = vmrun(vm_exe_path.clone(), Vec::from([
         "-T".to_string(),
         "ws".to_string(),
         "start".to_string(),
-        son_mac_path,
+        son_mac_path.clone(),
         "nogui".to_string(),
     ])).await;
 
