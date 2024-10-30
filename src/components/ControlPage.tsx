@@ -17,39 +17,40 @@ const ControlPage: React.FC<{
     const [runNumbers, setRunNumbers] = useState(0);
 
     const startClone = async () => {
-        setIsCloning(true);
-
+        console.log('Starting clone...');
+        try {
+            await vmrunClone(vmExePath, masterMacPath, sonMacPath, maxRunNumbers);
+            console.log("Clone successful");
+        } catch (error) {
+            console.error('Error during cloning:', error);
+        }
     };
 
     const stopClone = () => {
-        setIsCloning(false);
+        console.log('Stopping clone...');
     };
-
 
     useEffect(() => {
         const interval = setInterval(async () => {
             await getVmNumbers(vmExePath, setVms, setRunNumbers);
-            console.log("Clone status:`${isCloning}`")
+
             if (isCloning) {
-                try {
-                    await vmrunClone(vmExePath, masterMacPath, sonMacPath, maxRunNumbers);
-                    console.log("Clone successful");
-                    await getVmNumbers(vmExePath, setVms, setRunNumbers);
-                } catch (error) {
-                    console.error('Error during cloning:', error);
-                }
+                startClone().then(() => {
+                    getVmNumbers(vmExePath, setVms, setRunNumbers);
+                });
             }
         }, 5000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [isCloning]);
 
     return (
         <div>
-            <button type="button" onClick={startClone}>
+            <button type="button" onClick={() => setIsCloning(true)}
+                    disabled={runNumbers >= maxRunNumbers || isCloning}>
                 {'启动克隆'}
             </button>
-            <button type="button" onClick={stopClone}>
+            <button type="button" onClick={() => setIsCloning(false)} disabled={!isCloning}>
                 {'停止克隆'}
             </button>
 
