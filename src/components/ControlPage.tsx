@@ -44,7 +44,7 @@ const ControlPage: React.FC<{
                     getVmNumbers(vmExePath, setVms, setRunNumbers);
                 });
             }
-        }, 1000);
+        }, 10000);
 
         return () => clearInterval(interval);
     }, [isCloning]);
