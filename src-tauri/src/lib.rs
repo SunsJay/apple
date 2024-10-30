@@ -19,7 +19,7 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_persisted_scope::init())
-        .invoke_handler(tauri::generate_handler![utils::get_env_var, vm::vmrun_list])
+        .invoke_handler(tauri::generate_handler![utils::get_env_var, vm::vmrun_list, vm::vmrun_clone])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

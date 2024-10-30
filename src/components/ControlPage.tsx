@@ -1,6 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import {vmrunClone} from "../services/vm.ts";
 
-const ControlPage: React.FC<{ maxRunNumbers: number, runNumbers: number }> = ({maxRunNumbers, runNumbers}) => {
+const ControlPage: React.FC<{
+    maxRunNumbers: number,
+    runNumbers: number,
+    vmExePath: string
+    masterMacPath: string,
+    sonMacPath: string
+}> = ({
+          maxRunNumbers,
+          runNumbers,
+          vmExePath,
+          masterMacPath,
+          sonMacPath
+      }) => {
     // 模拟虚拟机数量统计数据
     const totalNumbers = 10; // 假设有10台虚拟机
 
@@ -31,21 +44,36 @@ const ControlPage: React.FC<{ maxRunNumbers: number, runNumbers: number }> = ({m
         margin: '0 20px',
     };
 
+
+    const [isCloning, setIsCloning] = useState(false);
+
+    const vmClone = async () => {
+        if (!isCloning && runNumbers < maxRunNumbers) {
+            setIsCloning(true);
+            await vmrunClone(vmExePath, masterMacPath, sonMacPath);
+            setIsCloning(false);
+        }
+    };
+
+    const stopClone = () => {
+        setIsCloning(false);
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
-            if (runNumbers < maxRunNumbers) {
-                console.log('当前运行任务数:', runNumbers);
-            } else {
+            if (runNumbers >= maxRunNumbers) {
+                setIsCloning(false);
                 console.log('当前运行任务数已达到最大值:', runNumbers);
             }
-        }, 30000); // 5秒检测一次
+        }, 30000);
 
         return () => clearInterval(interval);
     }, [runNumbers, maxRunNumbers]);
 
     return (
         <div>
-            <button type="button" onClick={() => console.log(maxRunNumbers)}>启动克隆</button>
+            <button type="button" onClick={vmClone}>启动克隆</button>
+            <button type="button" onClick={stopClone}>停止克隆</button>
             <div style={containerStyle}>
                 <p style={statStyle}>虚拟机数量统计：</p>
                 <p style={inlineStyle}>总数： {totalNumbers}</p>
