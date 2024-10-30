@@ -61,6 +61,7 @@ const ControlPage: React.FC<{
     };
 
     const stopClone = () => {
+        console.log("Stop Clone");
         setIsCloning(false);
     };
 
