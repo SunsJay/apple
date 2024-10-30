@@ -45,7 +45,6 @@ const ControlPage: React.FC<{
     const [isCloning, setIsCloning] = useState(false);
 
     const startClone = async () => {
-        console.log("Start Clone");
         if (!isCloning && runNumbers < maxRunNumbers) {
             try {
                 setIsCloning(true);
@@ -67,14 +66,16 @@ const ControlPage: React.FC<{
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if (runNumbers >= maxRunNumbers) {
+            if (!isCloning && runNumbers < maxRunNumbers) {
+                startClone(); // 如果未在克隆且运行任务数小于最大值，则继续克隆
+            } else if (runNumbers >= maxRunNumbers) {
                 setIsCloning(false);
                 console.log('当前运行任务数已达到最大值:', runNumbers);
             }
         }, 30000);
 
         return () => clearInterval(interval);
-    }, [runNumbers, maxRunNumbers]);
+    }, [runNumbers, maxRunNumbers, isCloning, startClone]);
 
     return (
         <div>
