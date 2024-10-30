@@ -15,9 +15,6 @@ const ControlPage: React.FC<{
     const [isCloning, setIsCloning] = useState(false);
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
-
-
-    // 解析 VM 列表字符串并提取文件名的函数
     const parseVmList = (vmListString: string) => {
         const lines = vmListString.split('\n');
         const extractedNames = [];
@@ -34,7 +31,6 @@ const ControlPage: React.FC<{
 
         return extractedNames;
     };
-
     const getVmNumbers = async () => {
         const res = await vmrunList(vmExePath);
         // @ts-ignore
@@ -55,6 +51,7 @@ const ControlPage: React.FC<{
         try {
             await vmrunClone(vmExePath, masterMacPath, sonMacPath);
             console.log("Clone successful");
+            getVmNumbers(); // 克隆成功后立即更新虚拟机数量信息
         } catch (error) {
             console.error('Error during cloning:', error);
         } finally {
@@ -69,7 +66,7 @@ const ControlPage: React.FC<{
     useEffect(() => {
         const interval = setInterval(() => {
             getVmNumbers();
-        }, 30000);
+        }, 5000); // 每5秒更新一次虚拟机数量信息
 
         return () => clearInterval(interval);
     }, []);
