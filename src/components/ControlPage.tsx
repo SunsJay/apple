@@ -42,6 +42,7 @@ const ControlPage: React.FC<{
     };
 
     const startClone = async () => {
+        getVmNumbers();
         if (isCloning || runNumbers >= maxRunNumbers) {
             return;
         }
