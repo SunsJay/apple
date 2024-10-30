@@ -15,6 +15,7 @@ const ControlPage: React.FC<{
     const [isCloning, setIsCloning] = useState(false);
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
+    const [stopCloning, setStopCloning] = useState(false);
 
     const parseVmList = (vmListString: string) => {
         const lines = vmListString.split('\n');
@@ -32,19 +33,17 @@ const ControlPage: React.FC<{
 
         return extractedNames;
     };
+
     const getVmNumbers = async () => {
         const res = await vmrunList(vmExePath);
-        // @ts-ignore
         const extractedNames = parseVmList(res[0]);
-        // @ts-ignore
         setVms(extractedNames);
-        // @ts-ignore
         setRunNumbers(res[1]);
     };
 
     const startClone = async () => {
-        getVmNumbers();
-        if (isCloning || runNumbers >= maxRunNumbers) {
+        await getVmNumbers();
+        if (isCloning || runNumbers >= maxRunNumbers || stopCloning) {
             return;
         }
 
@@ -53,17 +52,18 @@ const ControlPage: React.FC<{
         try {
             await vmrunClone(vmExePath, masterMacPath, sonMacPath);
             console.log("Clone successful");
-            getVmNumbers(); // 克隆成功后立即更新虚拟机数量信息
+            await getVmNumbers(); // 克隆成功后立即更新虚拟机数量信息
         } catch (error) {
             console.error('Error during cloning:', error);
         } finally {
             setIsCloning(false);
+            setStopCloning(false); // 重置停止克隆标志
         }
     };
 
     const stopClone = () => {
         console.log("Stop Clone");
-        setIsCloning(false);
+        setStopCloning(true); // 设置停止克隆标志
     };
 
     useEffect(() => {
@@ -75,14 +75,15 @@ const ControlPage: React.FC<{
     }, []);
 
     useEffect(() => {
-        if (runNumbers < maxRunNumbers && !isCloning) {
+        if (runNumbers < maxRunNumbers && !isCloning && !stopCloning) {
             startClone();
         }
-    }, [runNumbers, maxRunNumbers, isCloning, startClone]);
+    }, [runNumbers, maxRunNumbers, isCloning, stopCloning]);
 
     return (
         <div>
-            <button type="button" onClick={startClone} disabled={isCloning || runNumbers >= maxRunNumbers}>
+            <button type="button" onClick={startClone}
+                    disabled={isCloning || runNumbers >= maxRunNumbers || stopCloning}>
                 {isCloning ? '克隆中...' : '启动克隆'}
             </button>
             <button type="button" onClick={stopClone}>停止克隆</button>
