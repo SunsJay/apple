@@ -11,7 +11,7 @@ export const vmrunList = async (vmExePath: string) => {
 };
 
 
-export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMacPath: string, maxRunNumbers: number) => {
+export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMacPath: string, maxRunNumbers: string) => {
     try {
 
         return await invoke('vmrun_clone', {

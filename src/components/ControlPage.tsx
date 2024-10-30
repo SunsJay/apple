@@ -20,6 +20,7 @@ const ControlPage: React.FC<{
     const startClone = async () => {
         console.log('Starting clone...');
         try {
+            // @ts-ignore
             const res = await vmrunClone(vmExePath, masterMacPath, sonMacPath, maxRunNumbers);
             if (res === "limit") {
                 console.log("Clone limit");

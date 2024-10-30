@@ -57,7 +57,8 @@ pub async fn vmrun_list(vm_exe_path: String) -> (&'static str, usize) {
 
 
 #[tauri::command]
-pub async fn vmrun_clone(vm_exe_path: String, master_mac_path: String, son_mac_path: String, max_run_numbers: usize) -> String {
+pub async fn vmrun_clone(vm_exe_path: String, master_mac_path: String, son_mac_path: String, max_run_numbers: String) -> String {
+    let max_run_numbers: usize = max_run_numbers.parse().unwrap();
     let (_, run_numbers) = vmrun_list(vm_exe_path.clone()).await;
 
     if run_numbers >= max_run_numbers {
