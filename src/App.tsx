@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 import ControlPage from "./components/ControlPage";
@@ -9,19 +9,21 @@ import IDPage from "./components/IDPage.tsx";
 import {queryAppleID, querySerialNumber} from "./utils/db.ts";
 import {vmrunList} from "./services/vm.ts";
 import {handlePageChange} from "./utils/common.ts";
+import {useAppState} from "./model/useAppState.ts";
 
 const App: React.FC = () => {
-    const [databaseUrl, setDatabaseUrl] = useState("");
-    const [currentPage, setCurrentPage] = useState('控制台');
-    const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
-    const [masterMacPath, setMasterMacPath] = useState("D:\\mupan");
-    const [sonMacPath, setSonMacPath] = useState("D:\\zipan");
-    const [appleIDs, setAppleIDs] = useState([]);
-    const [serialNumbers, setSerialNumbers] = useState([]);
-    const [vms, setVms] = useState([]);
-    const [runNumbers, setRunNumbers] = useState(0);
-    const [maxRunNumbers, setMaxRunNumbers] = useState(5);
-
+    const {
+        databaseUrl, setDatabaseUrl,
+        currentPage, setCurrentPage,
+        vmExePath, setVmExePath,
+        masterMacPath, setMasterMacPath,
+        sonMacPath, setSonMacPath,
+        appleIDs, setAppleIDs,
+        serialNumbers, setSerialNumbers,
+        vms, setVms,
+        runNumbers, setRunNumbers,
+        maxRunNumbers, setMaxRunNumbers
+    } = useAppState();
     // 解析 VM 列表字符串并提取文件名的函数
     const parseVmList = (vmListString: string) => {
         const lines = vmListString.split('\n');
