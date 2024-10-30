@@ -72,6 +72,14 @@ pub async fn vmrun_clone(vm_exe_path: String, master_mac_path: String, son_mac_p
         clone_name,
     ])).await;
 
+    let res = vmrun(vm_exe_path, Vec::from([
+        "-T".to_string(),
+        "ws".to_string(),
+        "start".to_string(),
+        son_mac_path,
+        "nogui".to_string(),
+    ])).await;
+
     res
 }
 
