@@ -29,7 +29,7 @@ const ControlPage: React.FC<{
     useEffect(() => {
         const interval = setInterval(async () => {
             await getVmNumbers(vmExePath, setVms, setRunNumbers);
-
+            console.log("Clone status:`${isCloning}`")
             if (isCloning) {
                 try {
                     await vmrunClone(vmExePath, masterMacPath, sonMacPath, maxRunNumbers);
