@@ -48,11 +48,17 @@ const ControlPage: React.FC<{
     const [isCloning, setIsCloning] = useState(false);
 
     const startClone = async () => {
-        console.log("Start Clone")
+        console.log("Start Clone");
         if (!isCloning && runNumbers < maxRunNumbers) {
-            setIsCloning(true);
-            await vmrunClone(vmExePath, masterMacPath, sonMacPath);
-
+            try {
+                setIsCloning(true);
+                await vmrunClone(vmExePath, masterMacPath, sonMacPath);
+            } catch (error) {
+                console.error('Error during cloning:', error);
+                // Handle error, maybe show a message to the user
+            } finally {
+                setIsCloning(false);
+            }
         }
     };
 
