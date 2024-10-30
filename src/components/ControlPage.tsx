@@ -4,7 +4,7 @@ import {vmrunClone} from "../services/vm.ts";
 const ControlPage: React.FC<{
     maxRunNumbers: number,
     runNumbers: number,
-    vmExePath: string
+    vmExePath: string,
     masterMacPath: string,
     sonMacPath: string
 }> = ({
@@ -14,9 +14,7 @@ const ControlPage: React.FC<{
           masterMacPath,
           sonMacPath
       }) => {
-    // 模拟虚拟机数量统计数据
-    const totalNumbers = 10; // 假设有10台虚拟机
-
+    const totalNumbers = 10;
 
     const statStyle: React.CSSProperties = {
         position: 'absolute',
@@ -44,7 +42,6 @@ const ControlPage: React.FC<{
         margin: '0 20px',
     };
 
-
     const [isCloning, setIsCloning] = useState(false);
 
     const startClone = async () => {
@@ -52,8 +49,9 @@ const ControlPage: React.FC<{
         if (!isCloning && runNumbers < maxRunNumbers) {
             try {
                 setIsCloning(true);
-                console.log(isCloning, runNumbers, maxRunNumbers)
+                console.log(isCloning, runNumbers, maxRunNumbers);
                 await vmrunClone(vmExePath, masterMacPath, sonMacPath);
+                console.log("Clone successful");
             } catch (error) {
                 console.error('Error during cloning:', error);
                 // Handle error, maybe show a message to the user
@@ -80,7 +78,9 @@ const ControlPage: React.FC<{
 
     return (
         <div>
-            <button type="button" onClick={startClone}>启动克隆</button>
+            <button type="button" onClick={startClone} disabled={isCloning || runNumbers >= maxRunNumbers}>
+                启动克隆
+            </button>
             <button type="button" onClick={stopClone}>停止克隆</button>
             <div style={containerStyle}>
                 <p style={statStyle}>虚拟机数量统计：</p>
