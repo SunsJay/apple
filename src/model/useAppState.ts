@@ -4,7 +4,7 @@ export const useAppState = () => {
     const [databaseUrl, setDatabaseUrl] = useState("");
     const [currentPage, setCurrentPage] = useState('控制台');
     const [vmExePath, setVmExePath] = useState("C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmrun.exe");
-    const [masterMacPath, setMasterMacPath] = useState("D:\\mupan");
+    const [masterMacPath, setMasterMacPath] = useState("D:\\MUPAN2\\MUPAN2.vmx");
     const [sonMacPath, setSonMacPath] = useState("D:\\zipan");
     const [appleIDs, setAppleIDs] = useState([]);
     const [serialNumbers, setSerialNumbers] = useState([]);
