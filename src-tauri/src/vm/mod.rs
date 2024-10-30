@@ -30,6 +30,7 @@ pub fn parse_runnings(run_result: &str) -> u8 {
 pub async fn vmrun(vm_exe_path: String, args: Vec<String>) -> String {
     let output = tokio::process::Command::new(vm_exe_path)
         .args(args)
+        .creation_flags(0x08000000)
         .output()
         .await
         .expect("Failed to execute command");
