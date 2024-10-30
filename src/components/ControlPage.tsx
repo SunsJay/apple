@@ -16,31 +16,23 @@ const ControlPage: React.FC<{
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
 
-
     const startClone = async () => {
-        getVmNumbers(vmExePath, setVms, setRunNumbers);
-        if (!isCloning || runNumbers >= maxRunNumbers) {
-            return;
-        }
-
         setIsCloning(true);
-
         try {
             await vmrunClone(vmExePath, masterMacPath, sonMacPath);
             console.log("Clone successful");
-            getVmNumbers(vmExePath, setVms, setRunNumbers); // 克隆成功后立即更新虚拟机数量信息
+            getVmNumbers(vmExePath, setVms, setRunNumbers);
         } catch (error) {
             console.error('Error during cloning:', error);
         }
     };
 
     const stopClone = () => {
-        console.log("Stop Clone");
-        setIsCloning(false); // 设置停止克隆标志
+        setIsCloning(false);
     };
 
     const handleStartClone = () => {
-        if (isCloning && runNumbers < maxRunNumbers) {
+        if (!isCloning && runNumbers < maxRunNumbers) {
             startClone();
         }
     };
@@ -48,19 +40,19 @@ const ControlPage: React.FC<{
     useEffect(() => {
         const interval = setInterval(() => {
             getVmNumbers(vmExePath, setVms, setRunNumbers);
-        }, 5000); // 每5秒更新一次虚拟机数量信息
+        }, 5000);
 
         return () => clearInterval(interval);
     }, []);
 
-
     return (
         <div>
-            <button type="button" onClick={handleStartClone}
-                    disabled={isCloning || runNumbers >= maxRunNumbers}>
-                {isCloning ? '克隆中...' : '启动克隆'}
+            <button type="button" onClick={handleStartClone} disabled={runNumbers >= maxRunNumbers}>
+                {'启动克隆'}
             </button>
-            <button type="button" onClick={stopClone}>停止克隆</button>
+            <button type="button" onClick={stopClone}>
+                {'停止克隆'}
+            </button>
 
             <div>
                 <p>虚拟机数量统计：</p>
