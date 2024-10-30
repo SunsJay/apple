@@ -32,7 +32,7 @@ const ControlPage: React.FC = () => {
 
     return (
         <div>
-            <p>控制台</p>
+            <button>启动克隆</button>
             <div style={containerStyle}>
                 <p style={statStyle}>虚拟机数量统计：</p>
                 <p style={inlineStyle}>总数： {totalNumbers}</p>
