@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
-const ControlPage: React.FC<{ maxRunNumbers: number }> = ({maxRunNumbers}) => {
+const ControlPage: React.FC<{ maxRunNumbers: number, runNumbers: number }> = ({maxRunNumbers, runNumbers}) => {
     // 模拟虚拟机数量统计数据
     const totalNumbers = 10; // 假设有10台虚拟机
 
-    const [runNumbers, setRunNumbers] = useState(0);
 
     const statStyle: React.CSSProperties = {
         position: 'absolute',
@@ -36,11 +35,10 @@ const ControlPage: React.FC<{ maxRunNumbers: number }> = ({maxRunNumbers}) => {
         const interval = setInterval(() => {
             if (runNumbers < maxRunNumbers) {
                 console.log('当前运行任务数:', runNumbers);
-                setRunNumbers(prevRunNumbers => prevRunNumbers + 1);
             } else {
                 console.log('当前运行任务数已达到最大值:', runNumbers);
             }
-        }, 5000); // 5秒检测一次
+        }, 30000); // 5秒检测一次
 
         return () => clearInterval(interval);
     }, [runNumbers, maxRunNumbers]);
