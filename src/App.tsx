@@ -22,7 +22,7 @@ const App: React.FC = () => {
     const [maxRunNumbers, setMaxRunNumbers] = useState(5);
 
     // 解析 VM 列表字符串并提取文件名的函数
-    const parseVmList = (vmListString) => {
+    const parseVmList = (vmListString: string) => {
         const lines = vmListString.split('\n');
         const extractedNames = [];
 
@@ -44,6 +44,7 @@ const App: React.FC = () => {
     useEffect(() => {
         const getVmNumbers = async () => {
             const res = await vmrunList(vmExePath);
+            // @ts-ignore
             const extractedNames = parseVmList(res[0]);
 
             console.log(extractedNames);
@@ -55,7 +56,7 @@ const App: React.FC = () => {
         };
 
         const updateData = async () => {
-            getVmNumbers();
+            await getVmNumbers();
             const dbUrl = await getDatabaseUrl();
             setDatabaseUrl(dbUrl);
         };
