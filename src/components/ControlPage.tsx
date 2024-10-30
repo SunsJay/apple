@@ -18,28 +18,27 @@ const ControlPage: React.FC<{
 
     const startClone = async () => {
         setIsCloning(true);
-        try {
-            await vmrunClone(vmExePath, masterMacPath, sonMacPath);
-            console.log("Clone successful");
-            getVmNumbers(vmExePath, setVms, setRunNumbers);
-        } catch (error) {
-            console.error('Error during cloning:', error);
-        }
+
     };
 
     const stopClone = () => {
         setIsCloning(false);
     };
 
-    const handleStartClone = () => {
-        if (!isCloning && runNumbers < maxRunNumbers) {
-            startClone();
-        }
-    };
 
     useEffect(() => {
-        const interval = setInterval(() => {
+        const interval = setInterval(async () => {
             getVmNumbers(vmExePath, setVms, setRunNumbers);
+
+            if (isCloning) {
+                try {
+                    await vmrunClone(vmExePath, masterMacPath, sonMacPath, maxRunNumbers);
+                    console.log("Clone successful");
+                    await getVmNumbers(vmExePath, setVms, setRunNumbers);
+                } catch (error) {
+                    console.error('Error during cloning:', error);
+                }
+            }
         }, 5000);
 
         return () => clearInterval(interval);
@@ -47,7 +46,7 @@ const ControlPage: React.FC<{
 
     return (
         <div>
-            <button type="button" onClick={handleStartClone} disabled={runNumbers >= maxRunNumbers}>
+            <button type="button" onClick={startClone}>
                 {'启动克隆'}
             </button>
             <button type="button" onClick={stopClone}>

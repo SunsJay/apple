@@ -11,13 +11,14 @@ export const vmrunList = async (vmExePath: string) => {
 };
 
 
-export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMacPath: string) => {
+export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMacPath: string, maxRunNumbers: number) => {
     try {
 
         return await invoke('vmrun_clone', {
             vmExePath: vmExePath,
             masterMacPath: masterMacPath,
-            sonMacPath: sonMacPath
+            sonMacPath: sonMacPath,
+            maxRunNumbers: maxRunNumbers
         })
     } catch (error) {
         console.error('VMRUN-CLONE ERROR:', error);
@@ -26,17 +27,14 @@ export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMa
 };
 
 
-export const getVmNumbers = (vmExePath: string, setVms: Function, setRunNumbers: Function) => {
-    vmrunList(vmExePath)
-        .then((res) => {
-            // @ts-ignore
-            const extractedNames = parseVmList(res[0]);
-            // @ts-ignore
-            setVms(extractedNames);
-            // @ts-ignore
-            setRunNumbers(res[1]);
-        })
-        .catch((error) => {
-            console.error('VMRUN-LIST ERROR:', error);
-        });
+export const getVmNumbers = async (vmExePath: string, setVms: Function, setRunNumbers: Function) => {
+    const res = vmrunList(vmExePath)
+    // @ts-ignore
+    const extractedNames = parseVmList(res[0]);
+    // @ts-ignore
+    setVms(extractedNames);
+    // @ts-ignore
+    setRunNumbers(res[1]);
+
+
 };
