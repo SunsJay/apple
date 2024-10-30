@@ -15,6 +15,7 @@ const ControlPage: React.FC<{
     const [isCloning, setIsCloning] = useState(false);
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
+
     const parseVmList = (vmListString: string) => {
         const lines = vmListString.split('\n');
         const extractedNames = [];
@@ -33,11 +34,8 @@ const ControlPage: React.FC<{
     };
     const getVmNumbers = async () => {
         const res = await vmrunList(vmExePath);
-        // @ts-ignore
         const extractedNames = parseVmList(res[0]);
-        // @ts-ignore
         setVms(extractedNames);
-        // @ts-ignore
         setRunNumbers(res[1]);
     };
 
