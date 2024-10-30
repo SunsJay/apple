@@ -21,41 +21,52 @@ const App: React.FC = () => {
     const [runNumbers, setRunNumbers] = useState(0);
     const [maxRunNumbers, setMaxRunNumbers] = useState(5);
 
-    useEffect(() => {
-        const getVmNumbers = async () => {
+    // 解析 VM 列表字符串并提取文件名的函数
+    const parseVmList = (vmListString) => {
+        const lines = vmListString.split('\n');
+        const extractedNames = [];
 
-            const res = await vmrunList(vmExePath);
-            // 将字符串按行分割
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            const parts = line.split('\\');
+            const fileName = parts[parts.length - 1].replace('.vmx', '');
 
-            // @ts-ignore
-            const lines = res[0].split('\n');
-
-            const extractedNames: string[] = [];
-
-            for (let i = 1; i < lines.length; i++) {
-                const line = lines[i].trim(); // 去除首尾空格
-                const parts = line.split('\\'); // 将路径按斜杠分割
-                const fileName = parts[parts.length - 1].replace('.vmx', ''); // 获取最后一个斜杠后的文件名（去掉.vmx后缀）
-
-                // 如果文件名不为空字符串，则将其保存到数组中
-                if (fileName.trim() !== "") {
-                    extractedNames.push(fileName.trim());
-                }
+            if (fileName.trim() !== "") {
+                extractedNames.push(fileName.trim());
             }
-
-            console.log(extractedNames); // 输出提取出来的文件名数组
-
-            // @ts-ignore
-            setVms(extractedNames)
-            // @ts-ignore
-            setRunNumbers(res[1])
         }
 
-        getVmNumbers();
+        return extractedNames;
+    };
 
-        getDatabaseUrl().then((res) => {
-            setDatabaseUrl(res);
-        });
+
+    // 获取 VM 数量和数据库 URL 的 useEffect
+    useEffect(() => {
+        const getVmNumbers = async () => {
+            const res = await vmrunList(vmExePath);
+            const extractedNames = parseVmList(res[0]);
+
+            console.log(extractedNames);
+
+            // @ts-ignore
+            setVms(extractedNames);
+            // @ts-ignore
+            setRunNumbers(res[1]);
+        };
+
+        const updateData = async () => {
+            getVmNumbers();
+            const dbUrl = await getDatabaseUrl();
+            setDatabaseUrl(dbUrl);
+        };
+
+        updateData();
+
+        const interval = setInterval(() => {
+            updateData();
+        }, 10000); // 每隔 60 秒更新一次
+
+        return () => clearInterval(interval); // 清除定时器
     }, [vmExePath]);
 
     useEffect(() => {
