@@ -1,6 +1,7 @@
 import React from 'react';
 
-const ControlPage: React.FC = () => {
+// @ts-ignore
+const ControlPage: React.FC = ({maxRunNumbers}) => {
     // 模拟虚拟机数量统计数据
     const totalNumbers = 10; // 假设有10台虚拟机
 
@@ -32,7 +33,7 @@ const ControlPage: React.FC = () => {
 
     return (
         <div>
-            <button>启动克隆</button>
+            <button type="button" onClick={() => console.log(maxRunNumbers)}>启动克隆</button>
             <div style={containerStyle}>
                 <p style={statStyle}>虚拟机数量统计：</p>
                 <p style={inlineStyle}>总数： {totalNumbers}</p>
