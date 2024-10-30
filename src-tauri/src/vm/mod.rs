@@ -57,10 +57,10 @@ pub async fn vmrun_list(vm_exe_path: String) -> (&'static str, usize) {
 
 #[tauri::command]
 pub async fn vmrun_clone(vm_exe_path: String, master_mac_path: String, son_mac_path: String, max_run_numbers: usize) -> String {
-    let (_, run_numbers) = vmrun_list(vm_exe_path).await.unwrap();
+    let (_, run_numbers) = vmrun_list(vm_exe_path.clone()).await;
 
-    if (run_number >= max_run_numbers) {
-        return "0";
+    if run_numbers >= max_run_numbers {
+        return "0".to_string();
     }
     let vm_name = get_timestamp();
 
