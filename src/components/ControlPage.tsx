@@ -52,6 +52,7 @@ const ControlPage: React.FC<{
         if (!isCloning && runNumbers < maxRunNumbers) {
             try {
                 setIsCloning(true);
+                console.log(isCloning, runNumbers, maxRunNumbers)
                 await vmrunClone(vmExePath, masterMacPath, sonMacPath);
             } catch (error) {
                 console.error('Error during cloning:', error);
