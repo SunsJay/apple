@@ -1,6 +1,7 @@
 use std::env;
 use std::fs::File;
 use std::io::{self, Read};
+use std::time::{SystemTime, UNIX_EPOCH};
 
 use dotenv::dotenv;
 
@@ -65,4 +66,10 @@ pub fn read(filename: &str) -> Result<String, io::Error> {
 fn delete(filename: &str) -> Result<(), io::Error> {
     std::fs::remove_file(filename)?;
     Ok(())
+}
+
+pub fn get_timestamp() -> String {
+    let now = SystemTime::now();
+    let since_the_epoch = now.duration_since(UNIX_EPOCH).expect("Time went backwards");
+    since_the_epoch.as_secs().to_string()
 }

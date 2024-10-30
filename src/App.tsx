@@ -24,7 +24,7 @@ const App: React.FC = () => {
     useEffect(() => {
         const getVmNumbers = async () => {
 
-            const res = await vmrunList();
+            const res = await vmrunList(vmExePath);
             // 将字符串按行分割
 
             // @ts-ignore
@@ -56,7 +56,7 @@ const App: React.FC = () => {
         getDatabaseUrl().then((res) => {
             setDatabaseUrl(res);
         });
-    }, []);
+    }, [vmExePath]);
 
     useEffect(() => {
         if (databaseUrl) {
