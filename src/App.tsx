@@ -91,7 +91,7 @@ const App: React.FC = () => {
 
             <div>
                 {currentPage === '控制台' &&  // @ts-ignore
-                    <ControlPage maxRunNumbers={maxRunNumbers}/>}
+                    <ControlPage maxRunNumbers={maxRunNumbers} runNumbers={runNumbers}/>}
                 {currentPage === '本地配置' &&
                     // @ts-ignore
                     <LocalConfigPage vmExePath={vmExePath} setVmExePath={setVmExePath} masterMacPath={masterMacPath}
