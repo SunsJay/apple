@@ -66,6 +66,12 @@ const ControlPage: React.FC<{
         setStopCloning(true); // 设置停止克隆标志
     };
 
+    const handleStartClone = () => {
+        if (!isCloning && runNumbers < maxRunNumbers && !stopCloning) {
+            startClone();
+        }
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
             getVmNumbers();
@@ -83,7 +89,7 @@ const ControlPage: React.FC<{
 
     return (
         <div>
-            <button type="button" onClick={startClone}
+            <button type="button" onClick={handleStartClone}
                     disabled={isCloning || runNumbers >= maxRunNumbers || stopCloning}>
                 {isCloning ? '克隆中...' : '启动克隆'}
             </button>
