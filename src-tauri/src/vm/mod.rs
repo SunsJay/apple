@@ -60,7 +60,7 @@ pub async fn vmrun_clone(vm_exe_path: String, master_mac_path: String, son_mac_p
     let (_, run_numbers) = vmrun_list(vm_exe_path.clone()).await;
 
     if run_numbers >= max_run_numbers {
-        return "0".to_string();
+        return "limit".to_string();
     }
     let vm_name = get_timestamp();
 

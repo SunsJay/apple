@@ -19,7 +19,10 @@ const ControlPage: React.FC<{
     const startClone = async () => {
         console.log('Starting clone...');
         try {
-            await vmrunClone(vmExePath, masterMacPath, sonMacPath, maxRunNumbers);
+            const res = await vmrunClone(vmExePath, masterMacPath, sonMacPath, maxRunNumbers);
+            if (res === "limit") {
+                console.log("Clone limit");
+            }
             console.log("Clone successful");
         } catch (error) {
             console.error('Error during cloning:', error);
@@ -28,6 +31,7 @@ const ControlPage: React.FC<{
 
     const stopClone = () => {
         console.log('Stopping clone...');
+        setIsCloning(false);
     };
 
     useEffect(() => {
@@ -48,9 +52,9 @@ const ControlPage: React.FC<{
         <div>
             <button type="button" onClick={() => setIsCloning(true)}
                     disabled={runNumbers >= maxRunNumbers || isCloning}>
-                {'启动克隆'}
+                {isCloning ? '克隆中...' : '启动克隆'}
             </button>
-            <button type="button" onClick={() => setIsCloning(false)} disabled={!isCloning}>
+            <button type="button" onClick={stopClone} disabled={!isCloning}>
                 {'停止克隆'}
             </button>
 
