@@ -15,6 +15,16 @@
     -webkit-text-size-adjust: 100%;
 }
 
+.button-start {
+    background-color: #32CD32; /* 绿色 */
+    color: white;
+}
+
+.button-stop {
+    background-color: #DC143C; /* 红色 */
+    color: white;
+}
+
 .container {
     margin: 0;
     padding-top: 10vh;

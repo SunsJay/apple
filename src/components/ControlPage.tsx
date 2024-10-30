@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {getVmNumbers, vmrunClone} from "../services/vm.ts";
-
+import "./App.css";
 // 控制页面
 const ControlPage: React.FC<{
     maxRunNumbers: number,
@@ -44,18 +44,18 @@ const ControlPage: React.FC<{
                     getVmNumbers(vmExePath, setVms, setRunNumbers);
                 });
             }
-        }, 5000);
+        }, 1000);
 
         return () => clearInterval(interval);
     }, [isCloning]);
 
     return (
         <div>
-            <button type="button" onClick={() => setIsCloning(true)}
+            <button type="button" className="button-start" onClick={() => setIsCloning(true)}
                     disabled={runNumbers >= maxRunNumbers || isCloning}>
                 {isCloning ? '克隆中...' : '启动克隆'}
             </button>
-            <button type="button" onClick={stopClone} disabled={!isCloning}>
+            <button type="button" className="button-stop" onClick={stopClone} disabled={!isCloning}>
                 {'停止克隆'}
             </button>
 
