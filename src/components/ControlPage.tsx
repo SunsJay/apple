@@ -47,11 +47,12 @@ const ControlPage: React.FC<{
 
     const [isCloning, setIsCloning] = useState(false);
 
-    const vmClone = async () => {
+    const startClone = async () => {
+        console.log("Start Clone")
         if (!isCloning && runNumbers < maxRunNumbers) {
             setIsCloning(true);
             await vmrunClone(vmExePath, masterMacPath, sonMacPath);
-            setIsCloning(false);
+
         }
     };
 
@@ -72,7 +73,7 @@ const ControlPage: React.FC<{
 
     return (
         <div>
-            <button type="button" onClick={vmClone}>启动克隆</button>
+            <button type="button" onClick={startClone}>启动克隆</button>
             <button type="button" onClick={stopClone}>停止克隆</button>
             <div style={containerStyle}>
                 <p style={statStyle}>虚拟机数量统计：</p>
