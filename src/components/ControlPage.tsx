@@ -44,18 +44,14 @@ const ControlPage: React.FC<{
 
     const [isCloning, setIsCloning] = useState(false);
 
-    const startClone = async () => {
-        if (!isCloning && runNumbers < maxRunNumbers) {
+    const cloneVM = async () => {
+        if (runNumbers < maxRunNumbers) {
             try {
-                setIsCloning(true);
-                console.log(isCloning, runNumbers, maxRunNumbers);
                 await vmrunClone(vmExePath, masterMacPath, sonMacPath);
                 console.log("Clone successful");
             } catch (error) {
+                setIsCloning(false)
                 console.error('Error during cloning:', error);
-                // Handle error, maybe show a message to the user
-            } finally {
-                setIsCloning(false);
             }
         }
     };
@@ -64,22 +60,26 @@ const ControlPage: React.FC<{
         setIsCloning(false);
     };
 
+    const startClone = () => {
+        setIsCloning(true);
+
+    }
+
     useEffect(() => {
         const interval = setInterval(() => {
-            if (!isCloning && runNumbers < maxRunNumbers) {
-                startClone(); // 如果未在克隆且运行任务数小于最大值，则继续克隆
-            } else if (runNumbers >= maxRunNumbers) {
-                setIsCloning(false);
-                console.log('当前运行任务数已达到最大值:', runNumbers);
+
+            if (isCloning) {
+                cloneVM();
             }
+
         }, 30000);
 
         return () => clearInterval(interval);
-    }, [runNumbers, maxRunNumbers, isCloning, startClone]);
+    }, [runNumbers, maxRunNumbers, isCloning, cloneVM]);
 
     return (
         <div>
-            <button type="button" onClick={startClone} disabled={isCloning || runNumbers >= maxRunNumbers}>
+            <button type="button" onClick={startClone}>
                 启动克隆
             </button>
             <button type="button" onClick={stopClone}>停止克隆</button>
