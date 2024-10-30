@@ -16,7 +16,7 @@ export const vmrunList = async (vmExePath: string) => {
 export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMacPath: string) => {
     try {
 
-        return await invoke('vmrun_clone', {vmExePath, masterMacPath, sonMacPath})
+        return await invoke('vmrun_clone', {vmExePath: vmExePath, masterMacPath: masterMacPath, sonMacPath: sonMacPath})
     } catch (error) {
         console.error('VMRUN-CLONE ERROR:', error);
         return "";
