@@ -1,9 +1,9 @@
 import {invoke} from "@tauri-apps/api/core";
 
-export const vmrunList = async (vm_exe_path: string) => {
+export const vmrunList = async (vmExePath: string) => {
     try {
         // @ts-ignore
-        const res = await invoke('vmrun_list', vm_exe_path);
+        const res = await invoke('vmrun_list', vmExePath);
         console.log(res)
         return res
     } catch (error) {
