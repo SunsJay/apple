@@ -28,7 +28,7 @@ const ControlPage: React.FC<{
 
     useEffect(() => {
         const interval = setInterval(async () => {
-            getVmNumbers(vmExePath, setVms, setRunNumbers);
+            await getVmNumbers(vmExePath, setVms, setRunNumbers);
 
             if (isCloning) {
                 try {
