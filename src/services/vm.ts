@@ -28,7 +28,7 @@ export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMa
 
 
 export const getVmNumbers = async (vmExePath: string, setVms: Function, setRunNumbers: Function) => {
-    const res = vmrunList(vmExePath)
+    const res = await vmrunList(vmExePath)
     // @ts-ignore
     const extractedNames = parseVmList(res[0]);
     // @ts-ignore
