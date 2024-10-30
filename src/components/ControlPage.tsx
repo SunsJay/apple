@@ -34,8 +34,11 @@ const ControlPage: React.FC<{
     };
     const getVmNumbers = async () => {
         const res = await vmrunList(vmExePath);
+        // @ts-ignore
         const extractedNames = parseVmList(res[0]);
+        // @ts-ignore
         setVms(extractedNames);
+        // @ts-ignore
         setRunNumbers(res[1]);
     };
 
