@@ -16,32 +16,10 @@ const ControlPage: React.FC<{
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
 
-
-    // 解析 VM 列表字符串并提取文件名的函数
-    const parseVmList = (vmListString: string) => {
-        const lines = vmListString.split('\n');
-        const extractedNames = [];
-
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            const parts = line.split('\\');
-            const fileName = parts[parts.length - 1].replace('.vmx', '');
-
-            if (fileName.trim() !== "") {
-                extractedNames.push(fileName.trim());
-            }
-        }
-
-        return extractedNames;
-    };
-
     const getVmNumbers = async () => {
         const res = await vmrunList(vmExePath);
-        // @ts-ignore
         const extractedNames = parseVmList(res[0]);
-        // @ts-ignore
         setVms(extractedNames);
-        // @ts-ignore
         setRunNumbers(res[1]);
     };
 
@@ -55,6 +33,7 @@ const ControlPage: React.FC<{
         try {
             await vmrunClone(vmExePath, masterMacPath, sonMacPath);
             console.log("Clone successful");
+            getVmNumbers(); // 克隆成功后立即更新虚拟机数量信息
         } catch (error) {
             console.error('Error during cloning:', error);
         } finally {
@@ -69,7 +48,7 @@ const ControlPage: React.FC<{
     useEffect(() => {
         const interval = setInterval(() => {
             getVmNumbers();
-        }, 30000);
+        }, 5000); // 每5秒更新一次虚拟机数量信息
 
         return () => clearInterval(interval);
     }, []);
