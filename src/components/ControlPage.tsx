@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
-// @ts-ignore
-const ControlPage: React.FC = ({maxRunNumbers}) => {
+const ControlPage: React.FC<{ maxRunNumbers: number }> = ({maxRunNumbers}) => {
     // 模拟虚拟机数量统计数据
     const totalNumbers = 10; // 假设有10台虚拟机
+
+    const [runNumbers, setRunNumbers] = useState(0);
 
     const statStyle: React.CSSProperties = {
         position: 'absolute',
@@ -31,6 +32,19 @@ const ControlPage: React.FC = ({maxRunNumbers}) => {
         margin: '0 20px',
     };
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (runNumbers < maxRunNumbers) {
+                console.log('当前运行任务数:', runNumbers);
+                setRunNumbers(prevRunNumbers => prevRunNumbers + 1);
+            } else {
+                console.log('当前运行任务数已达到最大值:', runNumbers);
+            }
+        }, 5000); // 5秒检测一次
+
+        return () => clearInterval(interval);
+    }, [runNumbers, maxRunNumbers]);
+
     return (
         <div>
             <button type="button" onClick={() => console.log(maxRunNumbers)}>启动克隆</button>
@@ -44,9 +58,9 @@ const ControlPage: React.FC = ({maxRunNumbers}) => {
 
             <div style={containerStyle}>
                 <p style={statStyle}>运行实例状态：</p>
-                <p style={inlineStyle}>开机任务数： {totalNumbers}</p>
-                <p style={inlineStyle}>执行任务中： {totalNumbers}</p>
-                <p style={inlineStyle}>初始化中： {totalNumbers}</p>
+                <p style={inlineStyle}>开机任务数： {runNumbers}</p>
+                <p style={inlineStyle}>执行任务中： {totalNumbers - runNumbers}</p>
+                <p style={inlineStyle}>初始化中： {totalNumbers - runNumbers}</p>
             </div>
         </div>
     );
