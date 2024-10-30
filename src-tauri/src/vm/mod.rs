@@ -57,12 +57,12 @@ pub async fn vmrun_list(vm_exe_path: String) -> (&'static str, usize) {
 
 
 #[tauri::command]
-pub async fn vmrun_clone(master_mac_path: String, son_mac_path: String) -> String {
+pub async fn vmrun_clone(vm_exe_path: String, master_mac_path: String, son_mac_path: String) {
     let vm_name = get_timestamp();
 
     let son_mac_path = format!("{}\\{vm_name}\\{vm_name}.vmx", son_mac_path);
     let clone_name = format!("-cloneName={}", vm_name);
-    vmrun(Vec::from([
+    vmrun(vm_exe_path, Vec::from([
         "-T".to_string(),
         "ws".to_string(),
         "clone".to_string(),
