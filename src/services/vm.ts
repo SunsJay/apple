@@ -1,12 +1,12 @@
 import {invoke} from "@tauri-apps/api/core";
+import {parseVmList} from "../utils/parse.ts";
 
 export const vmrunList = async (vmExePath: string) => {
     try {
-        
-        return await invoke('vmrun_list', {vmExePath: vmExePath})
+        return await invoke('vmrun_list', {vmExePath: vmExePath});
     } catch (error) {
         console.error('VMRUN-LIST ERROR:', error);
-        return "";
+        return ["", ""]; // 返回一个空数组或默认值，以便处理同步情况
     }
 };
 
@@ -23,4 +23,20 @@ export const vmrunClone = async (vmExePath: string, masterMacPath: string, sonMa
         console.error('VMRUN-CLONE ERROR:', error);
         return "";
     }
+};
+
+
+export const getVmNumbers = (vmExePath: string, setVms: Function, setRunNumbers: Function) => {
+    vmrunList(vmExePath)
+        .then((res) => {
+            // @ts-ignore
+            const extractedNames = parseVmList(res[0]);
+            // @ts-ignore
+            setVms(extractedNames);
+            // @ts-ignore
+            setRunNumbers(res[1]);
+        })
+        .catch((error) => {
+            console.error('VMRUN-LIST ERROR:', error);
+        });
 };

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {vmrunClone, vmrunList} from "../services/vm.ts";
+import {getVmNumbers, vmrunClone} from "../services/vm.ts";
 
 const ControlPage: React.FC<{
     maxRunNumbers: number,
@@ -15,35 +15,11 @@ const ControlPage: React.FC<{
     const [isCloning, setIsCloning] = useState(false);
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
-    const [stopCloning, setStopCloning] = useState(false);
 
-    const parseVmList = (vmListString: string) => {
-        const lines = vmListString.split('\n');
-        const extractedNames = [];
-
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            const parts = line.split('\\');
-            const fileName = parts[parts.length - 1].replace('.vmx', '');
-
-            if (fileName.trim() !== "") {
-                extractedNames.push(fileName.trim());
-            }
-        }
-
-        return extractedNames;
-    };
-
-    const getVmNumbers = async () => {
-        const res = await vmrunList(vmExePath);
-        const extractedNames = parseVmList(res[0]);
-        setVms(extractedNames);
-        setRunNumbers(res[1]);
-    };
 
     const startClone = async () => {
-        await getVmNumbers();
-        if (isCloning || runNumbers >= maxRunNumbers || stopCloning) {
+        getVmNumbers(vmExePath, setVms, setRunNumbers);
+        if (!isCloning || runNumbers >= maxRunNumbers) {
             return;
         }
 
@@ -52,45 +28,36 @@ const ControlPage: React.FC<{
         try {
             await vmrunClone(vmExePath, masterMacPath, sonMacPath);
             console.log("Clone successful");
-            await getVmNumbers(); // 克隆成功后立即更新虚拟机数量信息
+            getVmNumbers(vmExePath, setVms, setRunNumbers); // 克隆成功后立即更新虚拟机数量信息
         } catch (error) {
             console.error('Error during cloning:', error);
-        } finally {
-            setIsCloning(false);
-            setStopCloning(false); // 重置停止克隆标志
         }
     };
 
     const stopClone = () => {
         console.log("Stop Clone");
-        setStopCloning(true); // 设置停止克隆标志
+        setIsCloning(false); // 设置停止克隆标志
     };
 
     const handleStartClone = () => {
-        if (!isCloning && runNumbers < maxRunNumbers && !stopCloning) {
+        if (isCloning && runNumbers < maxRunNumbers) {
             startClone();
         }
     };
 
     useEffect(() => {
         const interval = setInterval(() => {
-            getVmNumbers();
+            getVmNumbers(vmExePath, setVms, setRunNumbers);
         }, 5000); // 每5秒更新一次虚拟机数量信息
 
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
-        getVmNumbers();
-        if (runNumbers < maxRunNumbers && !isCloning && !stopCloning) {
-            startClone();
-        }
-    }, [runNumbers, maxRunNumbers, isCloning, stopCloning]);
 
     return (
         <div>
             <button type="button" onClick={handleStartClone}
-                    disabled={isCloning || runNumbers >= maxRunNumbers || stopCloning}>
+                    disabled={isCloning || runNumbers >= maxRunNumbers}>
                 {isCloning ? '克隆中...' : '启动克隆'}
             </button>
             <button type="button" onClick={stopClone}>停止克隆</button>
