@@ -10,7 +10,7 @@ export const useAppState = () => {
     const [serialNumbers, setSerialNumbers] = useState([]);
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
-    const [maxRunNumbers, setMaxRunNumbers] = useState('8');
+    const [maxRunNumbers, setMaxRunNumbers] = useState('2');
 
     return {
         databaseUrl, setDatabaseUrl,
