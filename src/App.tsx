@@ -9,6 +9,7 @@ import IDPage from "./components/IDPage.tsx";
 import {queryAppleID, querySerialNumber} from "./utils/db.ts";
 import {handlePageChange} from "./utils/common.ts";
 import {useAppState} from "./model/useAppState.ts";
+import {getVmNumbers} from "./services/vm.ts";
 
 const App: React.FC = () => {
     const {
@@ -25,7 +26,13 @@ const App: React.FC = () => {
         maxRunNumbers, setMaxRunNumbers
     } = useAppState();
 
+    useEffect(() => {
+        const updateRunNumbers = async () => {
+            await getVmNumbers(vmExePath, setVms, setRunNumbers);
+        }
 
+        updateRunNumbers().then(() => console.log('Update VM List'))
+    }, [])
     // 获取 VM 数量和数据库 URL 的 useEffect
     useEffect(() => {
 
