@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {getVmNumbers, vmrunClone} from "../services/vm.ts";
 import "../App.css";
 // 控制页面
@@ -6,16 +6,26 @@ const ControlPage: React.FC<{
     maxRunNumbers: number,
     vmExePath: string,
     masterMacPath: string,
-    sonMacPath: string
+    sonMacPath: string,
+    isCloning: boolean,
+    vms: string[],
+    runNumbers: number,
+    setVms: React.Dispatch<React.SetStateAction<any[]>>
+    setRunNumbers: React.Dispatch<React.SetStateAction<number>>
+    setIsCloning: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({
           maxRunNumbers,
           vmExePath,
           masterMacPath,
-          sonMacPath
+          sonMacPath,
+          isCloning,
+          vms,
+          runNumbers,
+          setVms,
+          setRunNumbers,
+          setIsCloning
       }) => {
-    const [isCloning, setIsCloning] = useState(false);
-    const [vms, setVms] = useState([]);
-    const [runNumbers, setRunNumbers] = useState(0);
+
 
     const startClone = async () => {
         console.log('Starting clone...');

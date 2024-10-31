@@ -19,25 +19,16 @@ const App: React.FC = () => {
         sonMacPath, setSonMacPath,
         appleIDs, setAppleIDs,
         serialNumbers, setSerialNumbers,
-        vms,
-        runNumbers,
+        vms, setVms,
+        runNumbers, setRunNumbers,
+        isCloning, setIsCloning,
         maxRunNumbers, setMaxRunNumbers
     } = useAppState();
 
 
     // 获取 VM 数量和数据库 URL 的 useEffect
     useEffect(() => {
-        // const getVmNumbers = async () => {
-        //     const res = await vmrunList(vmExePath);
-        //     // @ts-ignore
-        //     const extractedNames = parseVmList(res[0]);
-        //
-        //
-        //     // @ts-ignore
-        //     setVms(extractedNames);
-        //     // @ts-ignore
-        //     setRunNumbers(res[1]);
-        // };
+
 
         const updateData = async () => {
             // await getVmNumbers();
@@ -63,6 +54,7 @@ const App: React.FC = () => {
 
 
     // @ts-ignore
+    // @ts-ignore
     return (
         <main className="container">
             <header className="button-container">
@@ -74,7 +66,11 @@ const App: React.FC = () => {
             <div>
                 {currentPage === '控制台' &&  // @ts-ignore
                     <ControlPage maxRunNumbers={maxRunNumbers} runNumbers={runNumbers} masterMacPath={masterMacPath}
-                                 sonMacPath={sonMacPath} vmExePath={vmExePath}/>}
+                                 sonMacPath={sonMacPath} vmExePath={vmExePath} setRunNumbers={setRunNumbers}
+                                 vms={vms} isCloning={isCloning}
+                        // @ts-ignore
+                                 setVms={setVms}
+                                 setIsCloning={setIsCloning}/>}
                 {currentPage === '本地配置' &&
                     // @ts-ignore
                     <LocalConfigPage vmExePath={vmExePath} setVmExePath={setVmExePath} masterMacPath={masterMacPath}

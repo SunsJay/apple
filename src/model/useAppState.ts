@@ -11,7 +11,7 @@ export const useAppState = () => {
     const [vms, setVms] = useState([]);
     const [runNumbers, setRunNumbers] = useState(0);
     const [maxRunNumbers, setMaxRunNumbers] = useState('2');
-
+    const [isCloning, setIsCloning] = useState(false)
     return {
         databaseUrl, setDatabaseUrl,
         currentPage, setCurrentPage,
@@ -22,6 +22,7 @@ export const useAppState = () => {
         serialNumbers, setSerialNumbers,
         vms, setVms,
         runNumbers, setRunNumbers,
-        maxRunNumbers, setMaxRunNumbers
+        maxRunNumbers, setMaxRunNumbers,
+        isCloning, setIsCloning
     };
 };
