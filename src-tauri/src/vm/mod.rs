@@ -28,12 +28,22 @@ pub fn parse_runnings(run_result: &str) -> u8 {
 }
 
 pub async fn vmrun(vm_exe_path: String, args: Vec<String>) -> String {
+    #[cfg(target_os = "windows")]
     let output = tokio::process::Command::new(vm_exe_path)
         .args(args)
         .creation_flags(0x08000000)
         .output()
         .await
         .expect("Failed to execute command");
+
+    #[cfg(target_os = "macos")]
+    let output = tokio::process::Command::new(vm_exe_path)
+        .args(args)
+        // .creation_flags(0x08000000)
+        .output()
+        .await
+        .expect("Failed to execute command");
+
 
     if output.status.success() {
         String::from_utf8_lossy(&output.stdout).to_string()
