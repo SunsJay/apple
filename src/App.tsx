@@ -3,27 +3,26 @@ import "./App.css";
 import {LocalConfigPage, ScriptConfigPage} from "./components/ConfigPages";
 import ControlPage from "./components/ControlPage";
 import MacListsPage from "./components/MacListsPage";
-import {getDatabaseUrl,} from "./utils/env.ts";
 import SerialNumberPage from "./components/SerialNumberPage.tsx";
 import IDPage from "./components/IDPage.tsx";
-import {queryAppleID, querySerialNumber} from "./utils/db.ts";
 import {handlePageChange} from "./utils/common.ts";
 import {useAppState} from "./model/useAppState.ts";
 import {getVmNumbers} from "./services/vm.ts";
 
 const App: React.FC = () => {
     const {
-        databaseUrl, setDatabaseUrl,
+
         currentPage, setCurrentPage,
         vmExePath, setVmExePath,
         masterMacPath, setMasterMacPath,
         sonMacPath, setSonMacPath,
-        appleIDs, setAppleIDs,
-        serialNumbers, setSerialNumbers,
+        appleIDs,
+        serialNumbers,
         vms, setVms,
         runNumbers, setRunNumbers,
         isCloning, setIsCloning,
-        maxRunNumbers, setMaxRunNumbers
+        maxRunNumbers, setMaxRunNumbers,
+
     } = useAppState();
 
     useEffect(() => {
@@ -33,34 +32,14 @@ const App: React.FC = () => {
 
         updateRunNumbers().then(() => console.log('Update VM List'))
     }, [])
-    // 获取 VM 数量和数据库 URL 的 useEffect
-    useEffect(() => {
 
 
-        const updateData = async () => {
-            // await getVmNumbers();
-            const dbUrl = await getDatabaseUrl();
-            setDatabaseUrl(dbUrl);
-        };
-
-        updateData();
-
-        const interval = setInterval(() => {
-            updateData();
-        }, 10000); // 每隔 60 秒更新一次
-
-        return () => clearInterval(interval); // 清除定时器
-    }, [vmExePath]);
-
-    useEffect(() => {
-        if (databaseUrl) {
-            queryAppleID(databaseUrl, setAppleIDs);
-            querySerialNumber(databaseUrl, setSerialNumbers);
-        }
-    }, [databaseUrl]);
 
 
-    // @ts-ignore
+
+
+
+
     // @ts-ignore
     return (
         <main className="container">

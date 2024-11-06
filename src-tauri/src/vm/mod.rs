@@ -4,7 +4,8 @@ use lazy_static::lazy_static;
 use tokio::sync::Mutex as AsyncMutex;
 use tokio::time::timeout;
 
-use crate::utils::{get_timestamp, read};
+use crate::utils;
+use crate::utils::{get_timestamp, read, write};
 
 lazy_static! {
     pub static ref VMRUNEXE: AsyncMutex<&'static str> =
@@ -63,6 +64,12 @@ pub async fn vmrun_list(vm_exe_path: String) -> (&'static str, usize) {
     } else {
         ("0", 0)
     }
+}
+
+#[tauri::command]
+pub  fn vmrun_write(file_path: String, content: String) -> String {
+    utils::write(file_path.as_str(), content.as_str());
+    content
 }
 
 

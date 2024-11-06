@@ -81,6 +81,7 @@ const ControlPage: React.FC<{
                     <p key={index}>{vm}</p>
                 ))}
             </div>
+
         </div>
     );
 }

@@ -28,7 +28,6 @@ const LocalConfigPage: React.FC = ({
     };
 
     useEffect(() => {
-        console.log(maxRunNumbers);
     }, [maxRunNumbers]);
 
     return (
