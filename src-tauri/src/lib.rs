@@ -15,7 +15,7 @@ pub mod db;
 lazy_static! {
      pub static ref DB_POOL: MySqlPool =  {
 
-        tauri::async_runtime::block_on(
+        tokio::runtime::Runtime::new().unwrap().block_on(
             async {
         let db_url = utils::get_env("DB_URL");
        let pool = MySqlPoolOptions::new()
