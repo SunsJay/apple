@@ -8,6 +8,7 @@ import IDPage from "./components/IDPage.tsx";
 import {handlePageChange} from "./utils/common.ts";
 import {useAppState} from "./model/useAppState.ts";
 import {getVmNumbers} from "./services/vm.ts";
+import {invoke} from "@tauri-apps/api/core";
 
 const App: React.FC = () => {
     const {
@@ -29,6 +30,12 @@ const App: React.FC = () => {
         const updateRunNumbers = async () => {
             await getVmNumbers(vmExePath, setVms, setRunNumbers);
         }
+
+        const getAppleId = async () => {
+                return await invoke('get_apple_id_api');
+        }
+
+        getAppleId().then((appleId)=> console.log('get apple id:', appleId))
 
         updateRunNumbers().then(() => console.log('Update VM List'))
     }, [])
