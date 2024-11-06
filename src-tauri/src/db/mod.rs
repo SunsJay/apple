@@ -40,7 +40,7 @@ pub async fn get_apple_id() -> Result<AppleId, sqlx::Error> {
 }
 
 #[tauri::command]
-pub async fn get_apple_id_api() -> Result<AppleId, sqlx::Error> {
-    let res = get_apple_id().await?;
-    Ok(res)
+pub async fn get_apple_id_api() -> String {
+    let res = get_apple_id().await.unwrap().apple_id;
+    res
 }

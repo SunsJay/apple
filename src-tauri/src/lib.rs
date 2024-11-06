@@ -52,7 +52,7 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_persisted_scope::init())
-        .invoke_handler(tauri::generate_handler![utils::get_env_var, vm::vmrun_list, vm::vmrun_clone, vm::vmrun_write])
+        .invoke_handler(tauri::generate_handler![utils::get_env_var, vm::vmrun_list, vm::vmrun_clone, vm::vmrun_write, db::get_apple_id_api])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
